@@ -1,0 +1,39 @@
+<!-- myapp/templates/myapp/home.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Environmental Concerns - Log an Issue</title>
+
+    
+    <!-- Link the CSS file -->
+    <link rel="stylesheet" href="{% static 'myapp/css/styles.css' %}">
+</head>
+<body>
+
+    <header>
+        <h1>Environmental Concerns Logging</h1>
+        <p>Report Issues like potholes, graffiti, and more</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>Report an Issue</h2>
+            <p>If you notice environmental concerns like potholes or graffiti, use the form below to log them:</p>
+            <form method="POST">
+                {% csrf_token %}
+                <label for="issue">Describe the issue:</label>
+                <textarea name="issue" id="issue" rows="4" placeholder="Describe the issue..."></textarea><br>
+
+                <label for="location">Location:</label>
+                <input type="text" name="location" id="location" placeholder="Enter location (street name, area)" required><br>
+
+                <button type="submit">Submit Issue</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
