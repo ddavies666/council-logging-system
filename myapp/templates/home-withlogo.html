@@ -1,0 +1,171 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chalkstone Council - Your community, your voice. Stay informed and connected with our services, news, and initiatives.">
+    <meta name="author" content="Chalkstone Council">
+    <title>Chalkstone Council</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="/"><img src="{% static 'images/council-logo.png' %}" alt="Chalkstone Council Logo"></a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#news">News</a></li>
+                    <li><a href="#team">Our Team</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Welcome to Chalkstone Council</h1>
+                <p>Your community, your voice. We’re here to serve and support our residents.</p>
+                <a href="#about" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Us</h2>
+            <div class="about-content">
+                <p>Chalkstone Council is dedicated to fostering growth and enhancing the quality of life for our community. Our mission is to serve with integrity, transparency, and commitment to the well-being of every resident.</p>
+                <div class="about-stats">
+                    <div>
+                        <h3>50+</h3>
+                        <p>Years Serving the Community</p>
+                    </div>
+                    <div>
+                        <h3>100+</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div>
+                        <h3>10,000+</h3>
+                        <p>Residents Engaged</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="service-cards">
+                <div class="service-card">
+                    <h3>Community Development</h3>
+                    <p>Improving infrastructure, housing, and public spaces for a better tomorrow.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Environmental Initiatives</h3>
+                    <p>Promoting sustainability and eco-friendly practices within our community.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Public Services</h3>
+                    <p>Ensuring access to essential services like sanitation, safety, and education.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Local Events</h3>
+                    <p>Bringing people together through cultural, social, and recreational activities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="news" class="news">
+        <div class="container">
+            <h2>Latest News</h2>
+            <div class="news-grid">
+                <article class="news-item">
+                    <img src="{% static 'council/news1.jpg' %}" alt="News Image 1">
+                    <h3>Community Park Revitalization</h3>
+                    <p>We’re excited to announce the opening of the newly revitalized park.</p>
+                    <a href="/news/1" class="btn btn-secondary">Read More</a>
+                </article>
+                <article class="news-item">
+                    <img src="{% static 'council/news2.jpg' %}" alt="News Image 2">
+                    <h3>Volunteer Drive</h3>
+                    <p>Join us for our upcoming volunteer drive to support local initiatives.</p>
+                    <a href="/news/2" class="btn btn-secondary">Read More</a>
+                </article>
+                <article class="news-item">
+                    <img src="{% static 'council/news3.jpg' %}" alt="News Image 3">
+                    <h3>Town Hall Meeting Recap</h3>
+                    <p>Catch up on the latest updates from our recent town hall meeting.</p>
+                    <a href="/news/3" class="btn btn-secondary">Read More</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team">
+        <div class="container">
+            <h2>Meet Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="{% static 'council/member1.jpg' %}" alt="Team Member 1">
+                    <h3>John Doe</h3>
+                    <p>Mayor</p>
+                </div>
+                <div class="team-member">
+                    <img src="{% static 'council/member2.jpg' %}" alt="Team Member 2">
+                    <h3>Jane Smith</h3>
+                    <p>Council Member</p>
+                </div>
+                <div class="team-member">
+                    <img src="{% static 'council/member3.jpg' %}" alt="Team Member 3">
+                    <h3>Michael Brown</h3>
+                    <p>Community Planner</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>Have questions or need assistance? Reach out to us anytime.</p>
+            <form action="/contact" method="post">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Chalkstone Council. All rights reserved.</p>
+            <ul class="social-links">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">LinkedIn</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

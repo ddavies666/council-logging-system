@@ -1,39 +1,31 @@
-<!-- myapp/templates/myapp/home.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chalkstone council  - Log an Issue</title>
-
-    
-    <!-- Link the CSS file -->
+    <title>Chalkstone Council</title>
+    <!-- Corrected path to styles.css -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <!-- Logo on the left, linking to the home page -->
+        <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'images/council-logo.png' %}" alt="Logo" class="navbar-logo">
+        </a>
+        
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'login' %}">Login</a>
 
-    <header>
-        <h1>Chalkstone council</h1>
-        <p>Report Issues like potholes, graffiti, and more</p>
-    </header>
-
-    <div class="container">
-        <div class="card">
-            <h2>Report an Issue</h2>
-            <p>If you notice environmental concerns like potholes or graffiti, use the form below to log them:</p>
-            <form method="POST">
-                {% csrf_token %}
-                <label for="issue">Describe the issue:</label>
-                <textarea name="issue" id="issue" rows="4" placeholder="Describe the issue..."></textarea><br>
-
-                <label for="location">Location:</label>
-                <input type="text" name="location" id="location" placeholder="Enter location (street name, area)" required><br>
-
-                <button type="submit">Submit Issue</button>
-            </form>
-        </div>
     </div>
 
+    <!-- Main Content Area -->
+    <div class="content">
+        <!-- Chalkstone Council Heading -->
+        <h1>Welcome to Chalkstone Council</h1>
+
+    </div>
 </body>
 </html>
