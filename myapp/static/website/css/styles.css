@@ -1,11 +1,14 @@
 /* Apply the imported font to the entire website */
-body {
+html, body {
     font-family: 'Roboto', sans-serif;
-    background-image: url('https://www.publicdomainpictures.net/pictures/10000/velka/IMG_0162.jpg'); /* Background image */
+    height: 100%; /* Ensure the body and html take full height */
+    min-height: 100%; /* Make sure the page height is at least the height of the viewport */
+    /* background-image: url('https://www.publicdomainpictures.net/pictures/10000/velka/IMG_0162.jpg'); Background image */
     background-size: cover; /* Cover the entire viewport */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Prevent the image from repeating */
     color: white; /* Default text color for contrast */
+    overflow: auto; /* Enable scrolling if content overflows */
 }
 
 /* Basic reset for margin and padding */
@@ -29,6 +32,13 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+/* Content Styling */
+.content {
+    text-align: center;
+    padding-top: 0px; /* Push content below navbar */
+}
+
 
 .navbar a {
     color: white;
@@ -63,22 +73,22 @@ body {
 /* Content Styling */
 .content {
     text-align: center;
-    padding-top: 200px; /* Push content below navbar */
+    padding-top: 0px; /* Push content below navbar */
 }
 
 /* Generic page title and paragraph styling */
 .content h1 {
     font-size: 50px; /* Large heading size */
     margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); /* Text shadow for contrast */
+    /* text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); Text shadow for contrast */
     color: #000000;
 }
 
 .content p {
-    font-size: 18px;
+    font-size: 28px;
     margin-bottom: 40px; /* Spacing below paragraph */
     color: #000000;
-    max-width: 800px; /* Limit width */
+    max-width: 1000px; /* Limit width */
     margin: 0 auto; /* Center-align text */
 }
 
@@ -271,5 +281,131 @@ body {
 
     .issues-table th, .issues-table td {
         padding: 10px;
+    }
+}
+
+/* Styling for the action boxes */
+.action-boxes {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 100px;
+    
+}
+
+.box {
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 500x;
+    padding: 40px;
+    border-radius: 10px;
+    border: 5px solid black;
+
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.box:hover {
+    transform: scale(1.05); /* Slight scaling effect on hover */
+}
+
+.box h2 {
+    font-size: 54px;
+    margin-bottom: 10px;
+    color: #2e8b57; /* Green color for the headings */
+}
+
+.box p {
+    font-size: 32px;
+    color: #333;
+}
+
+.box a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Responsive Design for Small Screens */
+@media screen and (max-width: 768px) {
+    .navbar a {
+        font-size: 16px; /* Smaller font size for mobile screens */
+        margin: 0 10px; /* Reduced margin */
+    }
+
+    .content h1 {
+        font-size: 40px; /* Smaller heading size */
+    }
+
+    .content p {
+        font-size: 16px; /* Smaller paragraph text */
+        max-width: 90%; /* Allow content to take more width on mobile */
+    }
+
+    .action-boxes {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .box {
+        width: 80%;
+        margin-bottom: 20px; /* Spacing between boxes */
+    }
+}
+
+/* Styling for the map container */
+#map {
+    margin-top: 100px; /* Push the map below the navbar */
+    height: 800px; /* Fixed height for the map */
+    width: 50%; /* Full width for the map */
+    margin-left: auto; /* Centers the map horizontally */
+    margin-right: auto; /* Centers the map horizontally */
+    margin-bottom: 50px; /* Optional spacing after the map */
+    border: 5px solid black;
+    border-radius: 25px;
+    
+}
+
+/* Styling for the footer */
+.footer {
+    background-color: rgba(46, 139, 87, 0.9); /* Green background */
+    color: white; /* White text color */
+    text-align: center; /* Center align text */
+    padding: 20px; /* Add padding for spacing */
+    position: relative;
+    bottom: 0; /* Ensure the footer stays at the bottom of the page */
+    width: 100%; /* Make the footer span the entire width */
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for a subtle effect */
+    opacity: 10;
+}
+
+/* Optional styling for small screens */
+@media screen and (max-width: 768px) {
+    .footer p {
+        font-size: 16px; /* Adjust the text size for smaller screens */
+    }
+}
+
+.headline {
+    background-image: url('https://www.publicdomainpictures.net/pictures/10000/velka/IMG_0162.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the image */  
+    height: 600px;
+    max-width: 100%;
+    font-size: 50px; /* Size of the headline */
+    font-weight: bold; /* Make it bold */
+    color: #000000; /* Green color (same as navbar) */
+    margin-top: 5px; /* Space above the headline */
+    margin-bottom: 40px; /* Space below the headline */
+    text-align: center; /* Center-align the headline */
+    text-transform: uppercase; /* Make the text uppercase */
+    letter-spacing: 2px; /* Add some spacing between letters */
+}
+
+/* Optional: Responsive styling for smaller screens */
+@media screen and (max-width: 768px) {
+    .headline {
+        font-size: 28px; /* Smaller headline size on mobile */
     }
 }

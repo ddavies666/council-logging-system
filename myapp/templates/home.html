@@ -6,30 +6,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chalkstone Council</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+     <!-- Leaflet.js CSS -->
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 </head>
 <body>
     <!-- Navigation Bar -->
     <div class="navbar">
-        <!-- <a href="{% url 'home' %}" class="logo">
-            <img src="{% static 'images/council-logo.png' %}" alt="Logo" class="navbar-logo">
-        </a> -->
-        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
         <a href="{% url 'report_issue' %}">Report Issue</a>
         <a href="{% url 'view_issues' %}">View Issues</a>
         <a href="{% url 'login' %}" class="login-link">Login</a>
     </div>
-
+<!-- Main Content Area -->
+    <div class="content">
+        <!-- New Headline -->
+        <h2 class="headline"></h2>
+    </div>
     <!-- Main Content Area -->
     <div class="content">
         <h1>Welcome to Chalkstone Council</h1>
+        <p>Here you can report issues and view the status of reported issues in your community. Together, let's make Chalkstone a better place to live!</p>
+
+        <!-- Action Boxes -->
+        <div class="action-boxes">
+            <div class="box">
+                <a href="{% url 'report_issue' %}">
+                    <h2>Log Issue</h2>
+                    <p>Report an issue you've encountered in the Chalkstone community.</p>
+                </a>
+            </div>
+            <div class="box">
+                <a href="{% url 'view_issues' %}">
+                    <h2>View Issues</h2>
+                    <p>See the status of the issues reported by others in your area.</p>
+                </a>
+            </div>
+        </div>
     </div>
-    <!-- <style>
-        body {
-          background-image: url('https://harrowonline.org/wp-content/uploads/2023/04/Trees.png');
-          background-repeat: no-repeat;
-          background-attachment: fixed;  
-          background-size: cover;
-        }
-        </style> -->
+    <!-- Map Container -->
+    <div id="map"></div>
+
+    <!-- Leaflet.js JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([51.505, -0.09], 13);  // Set default view (lat, long, zoom)
+
+        // Add OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+    </script>
 </body>
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; 2025 Chalkstone Council. All Rights Reserved.</p>
+</footer>
+
 </html>
