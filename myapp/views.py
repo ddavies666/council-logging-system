@@ -10,3 +10,11 @@ def home(request):
 
 def login(request):
     return render(request, 'login.html')
+
+
+def report_issue(request):
+    return render(request, 'report_issue.html')
+
+
+def view_issues(request):
+    return render(request, 'view_issues.html')

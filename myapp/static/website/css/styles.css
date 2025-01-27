@@ -1,6 +1,11 @@
 /* Apply the imported font to the entire website */
 body {
     font-family: 'Roboto', sans-serif;
+    background-image: url('https://www.publicdomainpictures.net/pictures/10000/velka/IMG_0162.jpg'); /* Background image */
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    color: white; /* Default text color for contrast */
 }
 
 /* Basic reset for margin and padding */
@@ -16,124 +21,255 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #2e8b57; /* Dark Green background */
-    padding: 40px;
+    background-color: rgba(46, 139, 87, 0.9); /* Semi-transparent dark green */
+    padding: 20px;
     z-index: 1000; /* Ensures the navbar is always on top */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .navbar a {
     color: white;
     text-decoration: none;
-    margin: 0 20px;
-    font-size: 25px;
+    margin: 0 15px;
+    font-size: 24px;
     font-weight: bold;
 }
 
 .navbar a:hover {
     color: #d1e0d1; /* Lighter green on hover */
 }
-/* Style for the logo inside the navbar */
+
 .navbar .logo {
     margin-right: auto; /* Pushes the other navbar items to the right */
 }
 
+.navbar .login-link {
+    margin-left: auto;
+}
+
 .navbar-logo {
-    height: 120px; /* Adjust the logo size */
+    height: 50px; /* Adjust the logo size */
     width: auto;
     margin-left: 20px; /* Add some spacing to the left */
 }
 
-/* Optionally, you can add hover effect on the logo too */
 .navbar-logo:hover {
     opacity: 0.8;
 }
 
-/* Content styling */
+/* Content Styling */
 .content {
-    margin-top: 100px; /* Pushes content down to avoid overlap with navbar */
-    padding: 200px;
+    text-align: center;
+    padding-top: 200px; /* Push content below navbar */
 }
 
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+/* Generic page title and paragraph styling */
+.content h1 {
+    font-size: 50px; /* Large heading size */
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); /* Text shadow for contrast */
+    color: #000000;
 }
 
+.content p {
+    font-size: 18px;
+    margin-bottom: 40px; /* Spacing below paragraph */
+    color: #000000;
+    max-width: 800px; /* Limit width */
+    margin: 0 auto; /* Center-align text */
+}
+
+/* Specific styles for the form container */
 .form-container {
-    width: 500px; /* Form width */
-    padding: 50px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.9); /* Light background for form */
+    padding: 30px;
+    max-width: 600px; /* Limit the form width */
+    margin: 0 auto;
+    border-radius: 10px; /* Rounded corners for the form */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow around the form */
+}
+
+.form-container label {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.form-container input,
+.form-container textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px; /* Rounded corners for input fields */
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 16px;
+}
+
+.form-container textarea {
+    resize: vertical; /* Allow resizing vertically */
+}
+
+.form-container input:focus,
+.form-container textarea:focus {
+    outline: none;
+    border-color: #2e8b57; /* Green border when focused */
+    box-shadow: 0 0 5px rgba(46, 139, 87, 0.5); /* Subtle green glow */
+}
+
+.form-container button {
+    background-color: #2e8b57; /* Green background for button */
+    color: white;
+    padding: 12px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Full width for the button */
+    transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+    background-color: #1f6d3c; /* Darker green on hover */
+}
+
+/* Table Styling for View Issues Page */
+.issues-container {
+    margin-top: 50px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    max-width: 90%;
+    margin: 0 auto;
 }
 
-h1 {
-    text-align: center;
-    color: #2e8b57;
-    font-size: 66px;
-    margin-bottom: 20px;
+.issues-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-h2 {
-    text-align: center;
-    color: #2e8b57;
-    font-size: 28px;
-    margin-bottom: 30px;
+.issues-table th, .issues-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-input[type="text"],
-input[type="password"],
-input[type="email"] {
-    padding: 18px;
-    margin: 18px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-button {
-    padding: 18px;
+.issues-table th {
     background-color: #2e8b57;
     color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 20px;
+}
+
+.issues-table tr:hover {
+    background-color: #f5f5f5;
+}
+
+.issues-table a {
+    color: #2e8b57;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.issues-table a:hover {
+    color: #1f6d3c;
+}
+
+/* Styles for login page */
+.login-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-container label {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
     font-size: 16px;
 }
 
-button:hover {
-    background-color: #1f6d3c;
-}
-
-.toggle {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.toggle a {
-    color: #2e8b57;
+.login-container button {
+    background-color: #2e8b57;
+    color: white;
+    padding: 12px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+    width: 100%; /* Full width for the button */
+    transition: background-color 0.3s ease;
 }
 
-/* For better alignment of navbar items */
-.navbar {
-    display: flex;
-    justify-content: center;
+.login-container button:hover {
+    background-color: #1f6d3c; /* Darker green on hover */
 }
 
-.navbar a {
-    margin: 0 15px;
+/* Responsive Design for Small Screens */
+@media screen and (max-width: 768px) {
+    .navbar a {
+        font-size: 18px; /* Smaller font size for mobile screens */
+        margin: 0 10px; /* Reduced margin */
+    }
+
+    .content h1 {
+        font-size: 36px; /* Smaller heading size */
+    }
+
+    .content p {
+        font-size: 16px; /* Smaller paragraph text */
+        max-width: 90%; /* Allow content to take more width on mobile */
+    }
+
+    .form-container,
+    .login-container {
+        padding: 15px;
+        margin: 20px 10px;
+    }
+
+    .form-container input,
+    .form-container textarea,
+    .login-container input {
+        font-size: 14px; /* Smaller font size for input fields */
+    }
+
+    .form-container button,
+    .login-container button {
+        font-size: 16px; /* Smaller font size for button */
+    }
+
+    .issues-container {
+        padding: 10px;
+        margin-top: 20px;
+    }
+
+    .issues-table th, .issues-table td {
+        padding: 10px;
+    }
 }

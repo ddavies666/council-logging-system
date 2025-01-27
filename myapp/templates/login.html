@@ -11,12 +11,13 @@
     <!-- Navigation Bar -->
     <div class="navbar">
         <!-- Logo on the left, linking to the home page -->
-        <a href="{% url 'home' %}" class="logo">
+        <!-- <a href="{% url 'home' %}" class="logo">
             <img src="{% static 'images/council-logo.png' %}" alt="Logo" class="navbar-logo">
-        </a>
-        
+        </a> -->
         <a href="{% url 'home' %}">Home</a>
-        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'report_issue' %}">Report Issue</a>
+        <a href="{% url 'view_issues' %}">View Issues</a>
+        <a href="{% url 'login' %}" class="login-link">Login</a>
 
     </div>
 
@@ -26,7 +27,6 @@
             <div class="form-container">
                 <h1>Authentication</h1>
                 <div id="login-form">
-                    <h2>Login</h2>
                     <form action="#" method="POST">
                         <input type="text" name="username" placeholder="Username" required>
                         <input type="password" name="password" placeholder="Password" required>
@@ -68,5 +68,13 @@
             }
         }
     </script>
+    <style>
+        body {
+          background-image: url('https://www.publicdomainpictures.net/pictures/10000/velka/IMG_0162.jpg');
+          background-repeat: no-repeat;
+          background-attachment: fixed;  
+          background-size: cover;
+        }
+        </style>
 </body>
 </html>

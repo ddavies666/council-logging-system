@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Issue - Chalkstone Council</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <!-- <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'images/council-logo.png' %}" alt="Logo" class="navbar-logo">
+        </a> -->
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'report_issue' %}">Report Issue</a>
+        <a href="{% url 'view_issues' %}">View Issues</a>
+        <a href="{% url 'login' %}" class="login-link">Login</a>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content">
+        <h1>Report an Issue</h1>
+        <p>If you have encountered an issue or concern, please let us know by filling out the form below. Your input helps us improve services in Chalkstone Council.</p>
+
+        <!-- Report Issue Form -->
+        <form action="{% url 'home' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-container">
+                <label for="title">Issue Title</label>
+                <input type="text" id="title" name="title" required placeholder="Enter the issue title">
+
+                <label for="description">Issue Description</label>
+                <textarea id="description" name="description" required placeholder="Describe the issue" rows="4"></textarea>
+
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" required placeholder="Enter the location of the issue">
+
+                <label for="contact_email">Your Email (Optional)</label>
+                <input type="email" id="contact_email" name="contact_email" placeholder="Enter your email (if you want to be contacted)">
+
+                <button type="submit">Submit Report</button>
+            </div>
+        </form>
+    </div>
+    <!-- <style>
+        body {
+          background-image: url('https://harrowonline.org/wp-content/uploads/2023/04/Trees.png');
+          background-repeat: no-repeat;
+          background-attachment: fixed;  
+          background-size: cover;
+        }
+        </style> -->
+</body>
+</html>
