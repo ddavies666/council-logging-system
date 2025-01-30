@@ -294,7 +294,7 @@ html, body {
 
 .box {
     background-color: rgba(255, 255, 255, 0.9);
-    width: 500x;
+    width: 300x;
     padding: 40px;
     border-radius: 10px;
     border: 5px solid black;
@@ -316,7 +316,7 @@ html, body {
 }
 
 .box p {
-    font-size: 32px;
+    font-size: 22px;
     color: #333;
 }
 

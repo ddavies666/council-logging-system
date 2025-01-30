@@ -24,11 +24,21 @@
     </div>
     <!-- Main Content Area -->
     <div class="content">
-        <h1>Welcome to Chalkstone Council</h1>
+        <h1>Make Chalkstone Council a better place for Everyone</h1>
         <p>Here you can report issues and view the status of reported issues in your community. Together, let's make Chalkstone a better place to live!</p>
-
+        <div class="cta-section">
+            <div class="cta-box">
+                <img src="{% static 'images/CTA2.png' %}">
+        </div>
+        
         <!-- Action Boxes -->
         <div class="action-boxes">
+            <div class="box">
+                <a href="{% url 'login' %}">
+                    <h2>Register & Login</h2>
+                    <p>Login if you have an accout. If not Register today!</p>
+                </a>
+            </div>
             <div class="box">
                 <a href="{% url 'report_issue' %}">
                     <h2>Log Issue</h2>
