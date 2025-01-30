@@ -36,10 +36,13 @@ html, body {
 /* Content Styling */
 .content {
     text-align: center;
+    padding-top: 100px; /* Push content below navbar */
+}
+/* Content Styling */
+.content-home {
+    text-align: center;
     padding-top: 0px; /* Push content below navbar */
 }
-
-
 .navbar a {
     color: white;
     text-decoration: none;
@@ -68,12 +71,6 @@ html, body {
 
 .navbar-logo:hover {
     opacity: 0.8;
-}
-
-/* Content Styling */
-.content {
-    text-align: center;
-    padding-top: 0px; /* Push content below navbar */
 }
 
 /* Generic page title and paragraph styling */
