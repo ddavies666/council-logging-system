@@ -10,24 +10,30 @@
 <body>
     <!-- Navigation Bar -->
     <div class="navbar">
-        <!-- Logo on the left, linking to the home page -->
-        <!-- <a href="{% url 'home' %}" class="logo">
-            <img src="{% static 'images/council-logo.png' %}" alt="Logo" class="navbar-logo">
-        </a> -->
         <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
         <a href="{% url 'report_issue' %}">Report Issue</a>
         <a href="{% url 'view_issues' %}">View Issues</a>
-        <a href="{% url 'login' %}" class="login-link">Login</a>
-
+    
+        <div class="user-section">
+            {% if user.is_authenticated %}
+                <span class="user-info">Welcome, {{ user.username }}</span>
+                <a href="{% url 'logout' %}" class="login-link">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="login-link">Login</a>
+            {% endif %}
+        </div>
     </div>
+    
 
     <!-- Main Content Area -->
     <div class="content">
         <div class="container">
             <div class="form-container">
                 <h1>Authentication</h1>
+
                 <div id="login-form">
-                    <form action="#" method="POST">
+                    <form action="{% url 'login' %}" method="POST">
+                        {% csrf_token %}
                         <input type="text" name="username" placeholder="Username" required>
                         <input type="password" name="password" placeholder="Password" required>
                         <button type="submit">Login</button>
@@ -39,11 +45,12 @@
 
                 <div id="register-form" style="display: none;">
                     <h2>Register</h2>
-                    <form action="#" method="POST">
+                    <form action="{% url 'register' %}" method="POST">
+                        {% csrf_token %}
                         <input type="text" name="username" placeholder="Username" required>
                         <input type="email" name="email" placeholder="Email" required>
-                        <input type="password" name="password" placeholder="Password" required>
-                        <input type="password" name="confirm-password" placeholder="Confirm Password" required>
+                        <input type="password" name="password1" placeholder="Password" required>
+                        <input type="password" name="password2" placeholder="Confirm Password" required>
                         <button type="submit">Register</button>
                     </form>
                     <div class="toggle">
@@ -68,6 +75,7 @@
             }
         }
     </script>
+
     <style>
         body {
           background-image: url('https://www.publicdomainpictures.net/pictures/10000/velka/IMG_0162.jpg');
@@ -75,6 +83,6 @@
           background-attachment: fixed;  
           background-size: cover;
         }
-        </style>
+    </style>
 </body>
 </html>

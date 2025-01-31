@@ -43,6 +43,7 @@ html, body {
     text-align: center;
     padding-top: 0px; /* Push content below navbar */
 }
+
 .navbar a {
     color: white;
     text-decoration: none;
@@ -80,6 +81,22 @@ html, body {
     /* text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); Text shadow for contrast */
     color: #000000;
 }
+
+.content-home h1 {
+    font-size: 50px; /* Large heading size */
+    margin-bottom: 20px;
+    /* text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); Text shadow for contrast */
+    color: #000000;
+}
+
+.content-home p {
+    font-size: 28px;
+    margin-bottom: 40px; /* Spacing below paragraph */
+    color: #000000;
+    max-width: 1000px; /* Limit width */
+    margin: 0 auto; /* Center-align text */
+}
+
 
 .content p {
     font-size: 28px;
@@ -405,4 +422,16 @@ html, body {
     .headline {
         font-size: 28px; /* Smaller headline size on mobile */
     }
+}
+
+.user-info {
+    color: white;
+    margin-right: 10px;
+    font-size: 25px;
+}
+
+.user-section {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* This pushes the user-section to the right */
 }

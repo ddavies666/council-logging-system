@@ -15,28 +15,39 @@
         <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
         <a href="{% url 'report_issue' %}">Report Issue</a>
         <a href="{% url 'view_issues' %}">View Issues</a>
-        <a href="{% url 'login' %}" class="login-link">Login</a>
+        {% if user.is_staff %}
+            <a href="{% url 'view_issues' %}">Issue Management</a>
+        {% endif %}
+
+        <div class="user-section">
+            {% if user.is_authenticated %}
+                <span class="user-info">{{ user.username }}</span>
+                <a href="{% url 'logout' %}" class="login-link">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="login-link">Login</a>
+            {% endif %}
+        </div>
     </div>
-<!-- Main Content Area -->
+    <!-- Main Content Area -->
     <div class="content-home">
         <!-- New Headline -->
         <h2 class="headline"></h2>
     </div>
-    <!-- Main Content Area -->
-    <div class="content">
+<!-- Main Content Area -->
+    <div class="content-home">
         <h1>Make Chalkstone Council a better place for Everyone</h1>
         <p>Here you can report issues and view the status of reported issues in your community. Together, let's make Chalkstone a better place to live!</p>
         <div class="cta-section">
             <div class="cta-box">
                 <img src="{% static 'images/CTA2.png' %}">
-        </div>
+            </div>
         
         <!-- Action Boxes -->
         <div class="action-boxes">
             <div class="box">
                 <a href="{% url 'login' %}">
                     <h2>Register & Login</h2>
-                    <p>Login if you have an accout. If not Register today!</p>
+                    <p>Login if you have an account. If not, register today!</p>
                 </a>
             </div>
             <div class="box">
@@ -51,8 +62,19 @@
                     <p>See the status of the issues reported by others in your area.</p>
                 </a>
             </div>
+
+            {% if user.is_staff %}
+                <!-- Action Box for Staff -->
+                <div class="box">
+                    <a href="{% url 'issue_management' %}">
+                        <h2>Issue Management</h2>
+                        <p>Manage and resolve issues reported by users in the community.</p>
+                    </a>
+                </div>
+            {% endif %}
         </div>
     </div>
+    
     <!-- Map Container -->
     <div id="map"></div>
 

@@ -10,15 +10,16 @@
 <body>
     <!-- Navigation Bar -->
     <div class="navbar">
-        <!-- <a href="{% url 'home' %}" class="logo">
-            <img src="{% static 'images/council-logo.png' %}" alt="Logo" class="navbar-logo">
-        </a> -->
         <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
         <a href="{% url 'report_issue' %}">Report Issue</a>
         <a href="{% url 'view_issues' %}">View Issues</a>
-        <a href="{% url 'login' %}" class="login-link">Login</a>
-    </div>
 
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="login-link">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="login-link">Login</a>
+        {% endif %}
+    </div>
     <!-- Main Content Area -->
     <div class="content">
         <h1>View Reported Issues</h1>
