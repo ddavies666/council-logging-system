@@ -8,18 +8,25 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <div class="navbar">
-        <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
-        <a href="{% url 'report_issue' %}">Report Issue</a>
-        <a href="{% url 'view_issues' %}">View Issues</a>
+   <!-- Navigation Bar -->
+   <div class="navbar">
+    <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
+    <a href="{% url 'report_issue' %}">Report Issue</a>
+    <a href="{% url 'view_issues' %}">View Issues</a>
+    {% if user.is_staff %}
+        <a href="{% url 'issue_management' %}">Issue Management</a>
+    {% endif %}
 
+    <div class="user-section">
         {% if user.is_authenticated %}
+            <span class="user-info">{{ user.username }}</span>
             <a href="{% url 'logout' %}" class="login-link">Logout</a>
         {% else %}
             <a href="{% url 'login' %}" class="login-link">Login</a>
         {% endif %}
     </div>
+</div>
+
     <!-- Main Content Area -->
     <div class="content">
         <h1>View Reported Issues</h1>
@@ -35,6 +42,7 @@
                             <th>Description</th>
                             <th>Location</th>
                             <th>Status</th>
+                            <th>Image</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -46,10 +54,14 @@
                                 <td>{{ issue.location }}</td>
                                 <td>{{ issue.status }}</td>
                                 <td>
-                                    <!-- Actions for each issue (e.g., mark as resolved) -->
-                                    <a href="{% url 'resolve_issue' issue.id %}">Resolve</a> |
-                                    <a href="{% url 'view_issue_details' issue.id %}">View Details</a>
+                                    <!-- Display image if it exists -->
+                                    {% if issue.image %}
+                                        <img src="{{ issue.image.url }}" alt="Image for {{ issue.title }}" class="issue-image" width="100">
+                                    {% else %}
+                                        No Image
+                                    {% endif %}
                                 </td>
+                                
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -59,13 +71,15 @@
             {% endif %}
         </div>
     </div>
-    <!-- <style>
-        body {
-          background-image: url('https://harrowonline.org/wp-content/uploads/2023/04/Trees.png');
-          background-repeat: no-repeat;
-          background-attachment: fixed;  
-          background-size: cover;
+    
+    <!-- Optional: Additional CSS for issue images -->
+    <style>
+        .issue-image {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: cover;
         }
-        </style> -->
+    </style>
+
 </body>
 </html>

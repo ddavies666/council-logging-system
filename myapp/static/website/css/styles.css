@@ -100,7 +100,8 @@ html, body {
 
 .content p {
     font-size: 28px;
-    margin-bottom: 40px; /* Spacing below paragraph */
+    padding: 10px;
+    margin-bottom: 1000px; /* Spacing below paragraph */
     color: #000000;
     max-width: 1000px; /* Limit width */
     margin: 0 auto; /* Center-align text */
@@ -108,12 +109,13 @@ html, body {
 
 /* Specific styles for the form container */
 .form-container {
-    background-color: rgba(255, 255, 255, 0.9); /* Light background for form */
+    background-color: rgb(175 175 175 / 90%);
     padding: 30px;
     max-width: 600px; /* Limit the form width */
     margin: 0 auto;
     border-radius: 10px; /* Rounded corners for the form */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow around the form */
+    border: 1px solid black;
 }
 
 .form-container label {
@@ -121,6 +123,8 @@ html, body {
     color: #333;
     margin-bottom: 10px;
     display: block;
+    padding: 10px;
+    font-weight: bold;
 }
 
 .form-container input,
@@ -400,20 +404,26 @@ html, body {
 }
 
 .headline {
-    background-image: url('https://www.publicdomainpictures.net/pictures/10000/velka/IMG_0162.jpg');
+    background-image: url('https://cdn.pixabay.com/photo/2017/04/09/09/56/avenue-2215317_960_720.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover; /* Cover the entire viewport */
     background-position: center; /* Center the image */  
+    justify-content: center;
+    align-items: center;
     height: 600px;
+    
+    text-shadow: 2px 2px 11px rgba(0, 0, 0, 0.5);
+    display: flex;
     max-width: 100%;
-    font-size: 50px; /* Size of the headline */
+    align-items: center;
+    font-size: 70px; /* Size of the headline */
     font-weight: bold; /* Make it bold */
-    color: #000000; /* Green color (same as navbar) */
+    color: #ffffff; /* Green color (same as navbar) */
     margin-top: 5px; /* Space above the headline */
     margin-bottom: 40px; /* Space below the headline */
     text-align: center; /* Center-align the headline */
-    text-transform: uppercase; /* Make the text uppercase */
+    
     letter-spacing: 2px; /* Add some spacing between letters */
 }
 
@@ -435,3 +445,4 @@ html, body {
     align-items: center;
     margin-left: auto; /* This pushes the user-section to the right */
 }
+

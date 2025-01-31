@@ -131,3 +131,11 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Redirect unauthenticated users to this URL
+LOGIN_URL = '/login/'  # Ensure this matches the URL pattern for your login view
+
+# Define media root and media URL
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Issue
+from .forms import IssueForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -10,12 +11,22 @@ def home(request):
     return render(request, 'home.html')
 
 
+@login_required
 def report_issue(request):
-    return render(request, 'report_issue.html')
+    if request.method == 'POST':
+        form = IssueForm(request.POST, request.FILES)  # include request.FILES to handle the image upload
+        if form.is_valid():  # This validates the form and the file
+            form.save()  # Save the issue to the database
+            return redirect('home')  # Redirect to home or another page after saving
+    else:
+        form = IssueForm()
+
+    return render(request, 'report_issue.html', {'form': form})
 
 
 def view_issues(request):
-    return render(request, 'view_issues.html')
+    issues = Issue.objects.all()
+    return render(request, 'view_issues.html', {'issues': issues})
 
 
 def login_view(request):

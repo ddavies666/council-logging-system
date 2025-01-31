@@ -13,18 +13,18 @@
         <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
         <a href="{% url 'report_issue' %}">Report Issue</a>
         <a href="{% url 'view_issues' %}">View Issues</a>
-    
-        {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}" class="login-link">Logout</a>
-
-            {% if user.is_staff %}
-                <a href="{% url 'issue_management' %}" class="issue-management-link">Issue Management</a>
-            {% endif %}
-            
-            <span>Welcome, {{ user.username }}!</span>
-        {% else %}
-            <a href="{% url 'login' %}" class="login-link">Login</a>
+        {% if user.is_staff %}
+            <a href="{% url 'issue_management' %}">Issue Management</a>
         {% endif %}
+
+        <div class="user-section">
+            {% if user.is_authenticated %}
+                <span class="user-info">{{ user.username }}</span>
+                <a href="{% url 'logout' %}" class="login-link">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="login-link">Login</a>
+            {% endif %}
+        </div>
     </div>
 
     <!-- Main Content Area -->
