@@ -4,84 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Issues - Chalkstone Council</title>
+    <title>Assigned Issues - Chalkstone Council</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <style>
-        /* Style for the modal (hidden by default) */
-        .modal {
-            display: none;  /* Hidden by default */
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            overflow: auto;
-        }
-
-        /* Modal Content */
-        .modal-content {
-            position: relative;
-            margin: 10% auto;
-            padding: 20px;
-            background-color: white;
-            border: 1px solid #888;
-            width: 80%;  /* You can adjust the size */
-        }
-
-        /* Close button */
-        .close {
-            position: absolute;
-            top: 0;
-            right: 10px;
-            color: #aaa;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* Resize the image to fit the modal */
-        .modal-content img {
-            width: 100%;
-            height: auto;
-        }
-
-        .issue-image {
-            max-width: 100px;
-            max-height: 100px;
-            object-fit: cover;
-        }
-
-        .action-link {
-            color: #007BFF;
-            text-decoration: none;
-        }
-
-        .action-link:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
    <!-- Navigation Bar -->
    <div class="navbar">
     <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
     <a href="{% url 'report_issue' %}">Report Issue</a>
+    <a href="{% url 'view_issues' %}">Manage Issues</a>
     {% if user.is_staff %}
-        <a href="{% url 'view_issues' %}">Manage Issues</a>
         <a href="{% url 'assigned_issues' %}" class="active-link">Assigned Issues</a>
-        {% else %}
-        <a href="{% url 'view_issues' %}">View Issues</a>
-
     {% endif %}
-
     <div class="user-section">
         {% if user.is_authenticated %}
             <span class="user-info">{{ user.username }}</span>
@@ -94,8 +28,8 @@
 
     <!-- Main Content Area -->
     <div class="content">
-        <h1>View Reported Issues</h1>
-        <p>Below is the list of issues that have been reported to the Chalkstone Council. You can view the details of each issue and its current status.</p>
+        <h1>Assigned Issues</h1>
+        <p>Below is the list of issues that are assigned to you.</p>
 
         <!-- Issues List -->
         <div class="issues-container">
@@ -107,9 +41,10 @@
                             <th>Description</th>
                             <th>Location</th>
                             <th>Status</th>
-                            <th>Image</th>
                             {% if user.is_staff %}
-                                <th>Assignee / Resource</th>                            
+                                <th>Assignee / Resource</th>
+                                <th>Image</th>
+                            
                                 <th>Actions</th>
                             {% endif %}
                         </tr>
@@ -148,42 +83,9 @@
                     </tbody>
                 </table>
             {% else %}
-                <p>No issues reported yet. Be the first to report an issue!</p>
+                <p>No issues are currently assigned to you!</p>
             {% endif %}
         </div>
     </div>
-
-    <!-- Modal for viewing the full-size image -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <img id="modalImage" src="" alt="Full Image">
-        </div>
-    </div>
-
-    <script>
-        // Open the modal with the image
-        function openModal(imageUrl) {
-            var modal = document.getElementById("myModal");
-            var modalImage = document.getElementById("modalImage");
-            modal.style.display = "block";  // Show the modal
-            modalImage.src = imageUrl;  // Set the image in the modal
-        }
-
-        // Close the modal
-        function closeModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "none";  // Hide the modal
-        }
-
-        // Close the modal if the user clicks outside the modal content
-        window.onclick = function(event) {
-            var modal = document.getElementById("myModal");
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
-
 </body>
 </html>

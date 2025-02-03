@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Issue - Chalkstone Council</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
+    <a href="{% url 'report_issue' %}">Report Issue</a>
+    {% if user.is_staff %}
+        <a href="{% url 'view_issues' %}">Manage Issues</a>
+    {% endif %}
+    <!-- {% if user.is_staff %}
+        <a href="{% url 'issue_management' %}">Issue Management</a>
+    {% endif %} -->
+
+    <div class="user-section">
+        {% if user.is_authenticated %}
+            <span class="user-info">{{ user.username }}</span>
+            <a href="{% url 'logout' %}" class="login-link">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="login-link">Login</a>
+        {% endif %}
+    </div>
+</div>
+
+    <!-- Main Content Area -->
+<div class="content">
+    <h1>Update Issue</h1>
+    <p>Update the details for the reported issue.</p>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-container">
+
+            <!-- Title Field -->
+            <label for="{{ form.title.id_for_label }}">Title</label>
+            {{ form.title }}
+
+            <!-- Description Field -->
+            <label for="{{ form.description.id_for_label }}">Description</label>
+            {{ form.description }}
+
+            <label for="{{ form.assigned_to.id_for_label }}">Assignee</label>
+            {{ form.assigned_to }}
+
+            <!-- Location Field -->
+            <label for="{{ form.location.id_for_label }}">Location</label>
+            {{ form.location }}
+
+            <!-- Contact Email Field -->
+            <label for="{{ form.contact_email.id_for_label }}">Contact Email</label>
+            {{ form.contact_email }}
+
+            <!-- Status Field -->
+            <label for="{{ form.status.id_for_label }}">Status</label>
+            {{ form.status }}
+
+            <!-- Image Field -->
+            <label for="{{ form.image.id_for_label }}">Image</label>
+            {{ form.image }}
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn">Update Issue</button>
+        </form>
+        </div>
+    <a href="{% url 'view_issues' %}" class="back-link">Back to Issues</a>
+</div>
+
+</body>
+</html>

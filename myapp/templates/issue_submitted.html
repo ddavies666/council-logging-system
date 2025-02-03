@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Submitted - Chalkstone Council</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+   <!-- Navigation Bar -->
+   <div class="navbar">
+    <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
+    <a href="{% url 'report_issue' %}">Report Issue</a>
+    <a href="{% url 'view_issues' %}">Manage Issues</a>
+    {% if user.is_staff %}
+        <a href="{% url 'assigned_issues' %}" class="active-link">Assigned Issues</a>
+    {% endif %}
+    <div class="user-section">
+        {% if user.is_authenticated %}
+            <span class="user-info">{{ user.username }}</span>
+            <a href="{% url 'logout' %}" class="login-link">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="login-link">Login</a>
+        {% endif %}
+    </div>
+</div>
+
+    <!-- Main Content Area -->
+    <div class="content">
+
+    
+
+        <h1>Issue Submitted</h1>
+        <p>Your issue has been successfully submitted to the Chalkstone Council. Thank you for helping us improve the community!</p>
+        <p>We will review and take action on it shortly.</p>
+
+        <div class="image-container">
+            <img src="{% static 'images/tick2.png' %}" alt="Thank you for your submission" class="thank-you-image">
+        </div>
+
+        <div class="back-link-container">
+            <a href="{% url 'view_issues' %}" class="back-link">View All Issues</a>
+            <a href="{% url 'report_issue' %}" class="back-link">Report Another Issue</a>
+        </div>
+    </div>
+
+</body>
+</html>

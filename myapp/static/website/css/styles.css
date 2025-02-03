@@ -16,6 +16,7 @@ html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color: #000000;
 }
 
 /* Style for the top navigation bar */
@@ -109,7 +110,7 @@ html, body {
 
 /* Specific styles for the form container */
 .form-container {
-    background-color: rgb(175 175 175 / 90%);
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 30px;
     max-width: 600px; /* Limit the form width */
     margin: 0 auto;
