@@ -104,6 +104,7 @@
                     <thead>
                         <tr>
                             <th>Issue Title</th>
+                            <th>Date Logged</th>
                             <th>Description</th>
                             <th>Location</th>
                             <th>Status</th>
@@ -118,6 +119,7 @@
                         {% for issue in issues %}
                             <tr>
                                 <td>{{ issue.title }}</td>
+                                <td>{{ issue.created_at }}</td>
                                 <td>{{ issue.description }}</td>
                                 <td>{{ issue.location }}</td>
                                 <td>{{ issue.status }}</td>
@@ -138,7 +140,7 @@
                                 {% if user.is_staff %}
                                 <td>{{ issue.assigned_to }}</td>
                                 {% endif %}
-                                
+
                                 {% if user.is_staff %}
                                     <td>
                                         <!-- Update and Delete actions -->
