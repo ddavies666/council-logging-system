@@ -118,13 +118,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [
-    "C:\\Users\\Daniel Davies\\Documents\\Year 4 Software Eng 1\\council-logging-system\\council-logging-system\\myapp\\static\\website"
-]
 
 # STATICFILES_DIRS = [
-#     # "F:\Exeter\year 4 SWE1\council-logging-system\myapp\static\website"
+#     "C:\\Users\\Daniel Davies\\Documents\\Year 4 Software Eng 1\\council-logging-system\\council-logging-system\\myapp\\static\\website"
 # ]
+
+STATICFILES_DIRS = [
+    "F:\Exeter\year 4 SWE1\council-logging-system\myapp\static\website"
+]
 
 
 # Default primary key field type
