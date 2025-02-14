@@ -38,6 +38,7 @@ html, body {
 .content {
     text-align: center;
     padding-top: 100px; /* Push content below navbar */
+    height: auto;
 }
 /* Content Styling */
 .content-home {
@@ -372,15 +373,27 @@ html, body {
 }
 
 /* Styling for the map container */
-#map {
+#home_map {
     margin-top: 100px; /* Push the map below the navbar */
     height: 800px; /* Fixed height for the map */
-    width: 50%; /* Full width for the map */
+    width: 90%; /* Full width for the map */
     margin-left: auto; /* Centers the map horizontally */
     margin-right: auto; /* Centers the map horizontally */
     margin-bottom: 50px; /* Optional spacing after the map */
     border: 5px solid black;
     border-radius: 25px;
+    
+}
+
+#issue_map {
+    margin-top: 20px; /* Push the map below the navbar */
+    height: 500px; /* Fixed height for the map */
+    width: 90%; /* Full width for the map */
+    margin-left: auto; /* Centers the map horizontally */
+    margin-right: auto; /* Centers the map horizontally */
+    margin-bottom: 0px; /* Optional spacing after the map */
+    border: 5px solid black;
+    border-radius: 30px;
     
 }
 

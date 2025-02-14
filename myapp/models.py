@@ -12,6 +12,7 @@ class Issue(models.Model):
     ]
 
     title = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
     description = models.TextField()
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='Open')
     assigned_to = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)

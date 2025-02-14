@@ -12,9 +12,16 @@ import json
 def home(request):
     # Fetch all issues from the database
     issues = Issue.objects.all()  # or any other filter/query
-    
+
     # Pass the issues to the template
     return render(request, 'home.html', {'issues': issues})
+
+
+def issue_map(request):
+    issues = Issue.objects.all()  # or any other filter/query
+
+    # Pass the issues to the template
+    return render(request, 'issue_map.html', {'issues': issues})
 
 
 @login_required

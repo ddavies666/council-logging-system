@@ -67,30 +67,35 @@
         .action-link:hover {
             text-decoration: underline;
         }
+
+        /* Style for search box inside table header */
+        .search-input {
+            padding: 5px;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
-   <!-- Navigation Bar -->
-   <div class="navbar">
-    <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
-    <a href="{% url 'report_issue' %}">Report Issue</a>
-    {% if user.is_staff %}
-        <a href="{% url 'view_issues' %}">Manage Issues</a>
-        <a href="{% url 'assigned_issues' %}" class="active-link">Assigned Issues</a>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
+        <a href="{% url 'report_issue' %}">Report Issue</a>
+        {% if user.is_staff %}
+            <a href="{% url 'view_issues' %}">Manage Issues</a>
+            <a href="{% url 'assigned_issues' %}" class="active-link">Assigned Issues</a>
         {% else %}
-        <a href="{% url 'view_issues' %}">View Issues</a>
-
-    {% endif %}
-
-    <div class="user-section">
-        {% if user.is_authenticated %}
-            <span class="user-info">{{ user.username }}</span>
-            <a href="{% url 'logout' %}" class="login-link">Logout</a>
-        {% else %}
-            <a href="{% url 'login' %}" class="login-link">Login</a>
+            <a href="{% url 'view_issues' %}">View Issues</a>
+            <a href="{% url 'issue_map' %}">Issue Map</a>
         {% endif %}
+        <div class="user-section">
+            {% if user.is_authenticated %}
+                <span class="user-info">{{ user.username }}</span>
+                <a href="{% url 'logout' %}" class="login-link">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="login-link">Login</a>
+            {% endif %}
+        </div>
     </div>
-</div>
 
     <!-- Main Content Area -->
     <div class="content">
@@ -103,11 +108,11 @@
                 <table class="issues-table">
                     <thead>
                         <tr>
-                            <th>Issue Title</th>
+                            <th>Issue Title <br><input type="text" class="search-input" id="search-title" placeholder="Search by Title" onkeyup="searchTable()"></th>
                             <th>Date Logged</th>
                             <th>Description</th>
-                            <th>Location</th>
-                            <th>Status</th>
+                            <th>Location <br><input type="text" class="search-input" id="search-location" placeholder="Search by Location" onkeyup="searchTable()"></th>
+                            <th>Status <br><input type="text" class="search-input" id="search-status" placeholder="Search by Status" onkeyup="searchTable()"></th>
                             <th>Image</th>
                             {% if user.is_staff %}
                                 <th>Assignee / Resource</th>                            
@@ -117,18 +122,14 @@
                     </thead>
                     <tbody>
                         {% for issue in issues %}
-                            <tr>
+                            <tr class="issue-row">
                                 <td>{{ issue.title }}</td>
                                 <td>{{ issue.created_at }}</td>
                                 <td>{{ issue.description }}</td>
                                 <td>{{ issue.location }}</td>
                                 <td>{{ issue.status }}</td>
-                                
-
                                 <td>
-                                    <!-- Display image if it exists -->
                                     {% if issue.image %}
-                                        <!-- Clickable image thumbnail -->
                                         <a href="javascript:void(0);" onclick="openModal('{{ issue.image.url }}')">
                                             <img src="{{ issue.image.url }}" alt="Image for {{ issue.title }}" class="issue-image" width="100">
                                         </a>
@@ -136,14 +137,11 @@
                                         No Image
                                     {% endif %}
                                 </td>
-
                                 {% if user.is_staff %}
-                                <td>{{ issue.assigned_to }}</td>
+                                    <td>{{ issue.assigned_to }}</td>
                                 {% endif %}
-
                                 {% if user.is_staff %}
                                     <td>
-                                        <!-- Update and Delete actions -->
                                         <a href="{% url 'update_issue' issue.id %}" class="action-link">Update</a> | 
                                         <a href="{% url 'delete_issue' issue.id %}" class="action-link" onclick="return confirm('Are you sure you want to delete this issue?');">Delete</a>
                                     </td>
@@ -188,7 +186,31 @@
                 modal.style.display = "none";
             }
         }
-    </script>
 
+        // Function to filter the table based on search inputs
+        function searchTable() {
+            var titleInput = document.getElementById('search-title').value.toLowerCase();
+            var statusInput = document.getElementById('search-status').value.toLowerCase();
+            var locationInput = document.getElementById('search-location').value.toLowerCase();
+
+            var rows = document.querySelectorAll('.issues-table tbody tr');
+
+            rows.forEach(function(row) {
+                var title = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+                var status = row.querySelector('td:nth-child(5)').textContent.toLowerCase();
+                var location = row.querySelector('td:nth-child(4)').textContent.toLowerCase();
+
+                var matchesTitle = title.includes(titleInput);
+                var matchesStatus = status.includes(statusInput);
+                var matchesLocation = location.includes(locationInput);
+
+                if (matchesTitle && matchesStatus && matchesLocation) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>

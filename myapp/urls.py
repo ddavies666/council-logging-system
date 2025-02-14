@@ -16,7 +16,8 @@ urlpatterns = [
     path('update-issue/<int:issue_id>/', views.update_issue, name='update_issue'),
     path('delete-issue/<int:issue_id>/', views.delete_issue, name='delete_issue'),
     path('assigned-issues/', views.assigned_issues, name='assigned_issues'),
-    path('submitted-issue/', views.submitted_issue, name='issue_submitted')]
+    path('submitted-issue/', views.submitted_issue, name='issue_submitted'),
+    path('issue-map/', views.issue_map, name='issue_map')]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
