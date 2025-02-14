@@ -5,21 +5,43 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
+from django.core.serializers import serialize
+import json
 
 
 def home(request):
-    return render(request, 'home.html')
+    # Fetch all issues from the database
+    issues = Issue.objects.all()  # or any other filter/query
+    
+    # Pass the issues to the template
+    return render(request, 'home.html', {'issues': issues})
 
 
 @login_required
 def report_issue(request):
     if request.method == 'POST':
-        form = IssueForm(request.POST, request.FILES)  # include request.FILES to handle the image upload
+        form = IssueForm(request.POST, request.FILES)  # Include request.FILES to handle image upload
         if form.is_valid():  # This validates the form and the file
-            form.save()  # Save the issue to the database
-            return redirect('issue_submitted')  # Redirect to home or another page after saving
+            issue = form.save(commit=False)  # Don't save to DB yet, we need to extract GPS data
+
+            # Extract GPS data from image (if available)
+            lat, lon = issue.extract_gps_from_image()
+            if lat and lon:
+                issue.latitude = lat
+                issue.longitude = lon
+                print(f'GPS data extracted - Latitude: {lat}, Longitude: {lon}')
+            else:
+                print('No GPS data found in the image.')
+
+            # Now save the issue after extracting GPS data
+            issue.save()
+
+            # Redirect after saving the issue
+            return redirect('issue_submitted')  # Adjust to your desired URL after submission
     else:
         form = IssueForm()
+
+    print(form.errors)  # Log any form validation errors
 
     return render(request, 'report_issue.html', {'form': form})
 

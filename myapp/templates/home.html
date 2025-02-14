@@ -84,20 +84,37 @@
         </div>
     </div>
     
+<h2>Issue Map</h2>
     <!-- Map Container -->
-    <div id="map"></div>
+<div id="map"></div>
 
-    <!-- Leaflet.js JS -->
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script>
-        // Initialize the map
-        var map = L.map('map').setView([51.19158, 0.276540], 14);  // Set default view (lat, long, zoom)
+<!-- Include Leaflet.js JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    var map = L.map('map').setView([51.19158, 0.276540], 14); // Default view
 
-        // Add OpenStreetMap tile layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-    </script>
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    {% for issue in issues %}
+        {% if issue.latitude and issue.longitude %}
+            // Debugging: print the coordinates to the console
+            console.log("Latitude: {{ issue.latitude|floatformat:6 }}, Longitude: {{ issue.longitude|floatformat:6 }}");
+
+            var lat = {{ issue.latitude|floatformat:6 }};
+            var lon = {{ issue.longitude|floatformat:6 }};
+
+            // Debugging: print parsed coordinates
+            console.log("Parsed Lat/Lon: " + lat + ", " + lon);
+
+            var marker = L.marker([lat, lon]).addTo(map)
+                .bindPopup("<b>{{ issue.title|escapejs }}</b><br>Status: {{ issue.status|escapejs }}");
+        {% else %}
+            console.log("Issue {{ issue.title|escapejs }} does not have valid coordinates.");
+        {% endif %}
+    {% endfor %}
+</script>
 </body>
 <!-- Footer -->
 <footer class="footer">
