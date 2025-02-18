@@ -1,12 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Issue
 from .forms import IssueForm
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
-from django.core.serializers import serialize
-import json
 
 
 def home(request):
