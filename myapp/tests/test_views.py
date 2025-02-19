@@ -76,7 +76,7 @@ def test_assigned_issues_non_staff(client, django_user_model):
 
 
 @pytest.mark.django_db
-def test_login_view(client, django_user_model):
+def test_login_user(client, django_user_model):
     django_user_model.objects.create_user(username="testuser", password="password")
     response = client.post(
         reverse("login"), {"username": "testuser", "password": "password"}
@@ -85,7 +85,7 @@ def test_login_view(client, django_user_model):
 
 
 @pytest.mark.django_db
-def test_register_view(client):
+def test_register_user(client):
     response = client.post(
         reverse("register"),
         {"username": "newuser", "password1": "password", "password2": "password"},

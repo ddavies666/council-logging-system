@@ -107,6 +107,7 @@ html, body {
     color: #000000;
     max-width: 1000px; /* Limit width */
     margin: 0 auto; /* Center-align text */
+    padding-bottom: 50px;
 }
 
 /* Specific styles for the form container */

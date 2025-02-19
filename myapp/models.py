@@ -34,7 +34,7 @@ class Issue(models.Model):
     def __str__(self) -> str:
         return self.title
 
-    def extract_gps_from_image(self) -> List[float, float]:
+    def extract_gps_from_image(self) -> Tuple[float]:
         """
         Extracts GPS data from the image if available and saves lat/lon to model.
         """

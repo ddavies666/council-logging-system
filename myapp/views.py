@@ -65,14 +65,22 @@ def assigned_issues(request):
     # Check if the user is a staff member
     if not request.user.is_staff:
         return HttpResponseForbidden("You do not have permission to view this page.")
-    
+
     # Filter issues assigned to the logged-in user
     issues = Issue.objects.filter(assigned_to=request.user)
-    
+
     return render(request, 'assigned_issues.html', {'issues': issues})
 
 
-def login_view(request):
+def login_user(request):
+    """
+    Handles user login
+
+    If the login form is valid and credentials match those on the system,
+    this will successfully log the user in and redirect the user to the 
+    hompeage.
+
+    """
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -85,7 +93,18 @@ def login_view(request):
     return render(request, 'login.html', {'login_form': form, 'register_form': UserCreationForm()})
 
 
-def register_view(request):
+def register_user(request):
+    """
+    Handles user registration
+
+    If the registration form is valid, it will save the user and their details
+    to the database for future login access. Redirecting the user to the homepage
+    now logged in.
+
+    If the form in not valid, the data is not saved to the database and the user
+    will be prompted to redo the form
+
+    """
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -100,6 +119,12 @@ def register_view(request):
 
 @login_required
 def logout_view(request):
+    """
+    Logout Current User
+
+    Logs the current user out of the system and redirects them to the homepage.
+
+    """
     logout(request)
     return redirect('home')  # Redirect to homepage after logout
 

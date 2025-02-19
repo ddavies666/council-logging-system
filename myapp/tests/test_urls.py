@@ -8,8 +8,8 @@ from myapp.views import (
     submitted_issue,
     view_issues,
     assigned_issues,
-    login_view,
-    register_view,
+    login_user,
+    register_user,
     logout_view,
     issue_management,
     update_issue,
@@ -29,7 +29,7 @@ from myapp.views import (
             ),
 
             (
-                'login', {}, login_view, False
+                'login', {}, login_user, False
             ),
 
             (
@@ -53,7 +53,7 @@ from myapp.views import (
             ),
 
             (
-                'register', {}, register_view, False
+                'register', {}, register_user, False
             ),
 
             (
