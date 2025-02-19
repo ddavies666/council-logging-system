@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 
 
 class IssueForm(forms.ModelForm):
+    """
+    Class to represent IssueForm
+    """
     assigned_to = forms.ModelChoiceField(
         queryset=User.objects.all(),
         required=False,

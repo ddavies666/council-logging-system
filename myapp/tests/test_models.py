@@ -2,7 +2,8 @@ import pytest
 from myapp.models import Issue
 from django.utils.timezone import now
 from PIL import Image
-from PIL.ExifTags import TAGS, GPSTAGS 
+from PIL.ExifTags import TAGS, GPSTAGS
+
 
 @pytest.mark.django_db
 def test_issue_creation():
@@ -26,8 +27,6 @@ def test_extract_gps_from_image():
     image = "myapp\\tests\\media\\graffiti1.jpg"
     img = Image.open(image)
     exif_data = img._getexif()
-    
+
     if not exif_data:
         assert None
-
-    
