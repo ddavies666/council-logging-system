@@ -109,7 +109,7 @@
                     <thead>
                         <tr>
                             <th>Issue Title <br><input type="text" class="search-input" id="search-title" placeholder="Search by Title" onkeyup="searchTable()"></th>
-                            <th>Date Logged</th>
+                            <th>Date Logged <br><input type="date" class="search-input" id="search-date" onchange="searchTable()"></th>
                             <th>Description</th>
                             <th>Location <br><input type="text" class="search-input" id="search-location" placeholder="Search by Location" onkeyup="searchTable()"></th>
                             <th>Status <br><input type="text" class="search-input" id="search-status" placeholder="Search by Status" onkeyup="searchTable()"></th>
@@ -124,7 +124,7 @@
                         {% for issue in issues %}
                             <tr class="issue-row">
                                 <td>{{ issue.title }}</td>
-                                <td>{{ issue.created_at }}</td>
+                                <td>{{ issue.created_at|date:"Y-m-d" }}</td>
                                 <td>{{ issue.description }}</td>
                                 <td>{{ issue.location }}</td>
                                 <td>{{ issue.status }}</td>
@@ -190,6 +190,7 @@
         // Function to filter the table based on search inputs
         function searchTable() {
             var titleInput = document.getElementById('search-title').value.toLowerCase();
+            var dateInput = document.getElementById('search-date').value;
             var statusInput = document.getElementById('search-status').value.toLowerCase();
             var locationInput = document.getElementById('search-location').value.toLowerCase();
 
@@ -197,14 +198,16 @@
 
             rows.forEach(function(row) {
                 var title = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+                var date = row.querySelector('td:nth-child(2)').textContent.trim().substring(0, 10);
                 var status = row.querySelector('td:nth-child(5)').textContent.toLowerCase();
                 var location = row.querySelector('td:nth-child(4)').textContent.toLowerCase();
 
                 var matchesTitle = title.includes(titleInput);
                 var matchesStatus = status.includes(statusInput);
                 var matchesLocation = location.includes(locationInput);
+                var matchesDate = dateInput === "" || date.includes(dateInput);
 
-                if (matchesTitle && matchesStatus && matchesLocation) {
+                if (matchesTitle && matchesStatus && matchesLocation && matchesDate) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
