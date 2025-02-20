@@ -34,15 +34,15 @@
         <h1>Issue Submitted</h1>
         <p>Your issue has been successfully submitted to the Chalkstone Council. Thank you for helping us improve the community!</p>
         <p>We will review and take action on it shortly.</p>
-        <p>A confirmation has bee sent to {{user.email}}.</p>
+        <p>A confirmation has been sent to <strong>{{ user.email }}</strong>.</p>
 
         <div class="image-container">
             <img src="{% static 'images/tick2.png' %}" alt="Thank you for your submission" class="thank-you-image">
         </div>
 
         <div class="back-link-container">
-            <a href="{% url 'view_issues' %}" class="back-link">View All Issues</a>
-            <a href="{% url 'report_issue' %}" class="back-link">Report Another Issue</a>
+            <a href="{% url 'view_issues' %}" class="button">View All Issues</a>
+            <a href="{% url 'report_issue' %}" class="button">Report Another Issue</a>
         </div>
     </div>
 

@@ -36,30 +36,30 @@
         <h1>View Reported Issues on Map</h1>
         <p>Below is the list of issues that have been reported to the Chalkstone Council. You can view the details of each issue and its current status.</p>
         
-        <!-- Map Container -->
-        <div id="issue_map"></div> <!-- Ensure map height is defined -->
+        <!-- Issue Map -->
+        <div id="issue_map"></div> 
 
     </div>
 
-    <!-- Include Leaflet.js JS -->
+    <!-- Leaflet.js JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
         var markers = [];  // Array to hold the marker references
 
-window.onload = function () {
+    window.onload = function () {
     var map = L.map('issue_map').setView([51.19158, 0.276540], 14); // Default view
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    // Add markers for each issue from the issues context
+    // Add markers for each issue from the issues db
     {% for issue in issues %}
         {% if issue.latitude and issue.longitude %}
             var lat = {{ issue.latitude|floatformat:6 }};
             var lon = {{ issue.longitude|floatformat:6 }};
             var marker = L.marker([lat, lon]).addTo(map)
-                .bindPopup("<b>{{ issue.title|escapejs }}</b><br>Status: {{ issue.status|escapejs }}<br>Date Logged: {{ issue.created_at|escapejs }}<br>GPS: " + lat.toFixed(6) + ", " + lon.toFixed(6));
+                .bindPopup("<b>{{ issue.title|escapejs }}</b><br>Status: {{ issue.status|escapejs }}<br>Date Logged: {{ issue.created_at|date:'Y-m-d'|escapejs }}<br>GPS: " + lat.toFixed(6) + ", " + lon.toFixed(6));
 
             // Store the marker reference in the markers array
             markers.push({lat: lat, lon: lon, marker: marker, issue_id: {{ issue.id }}});
@@ -145,7 +145,7 @@ window.onload = function () {
                             {% if issue.latitude and issue.longitude %}
                                 <tr class="issue-row" data-lat="{{ issue.latitude }}" data-lon="{{ issue.longitude }}">
                                     <td>{{ issue.title }}</td>
-                                    <td>{{ issue.created_at }}</td>
+                                    <td>{{ issue.created_at|date:"Y-m-d" }}</td>
                                     <td>{{ issue.description }}</td>
                                     <td>{{ issue.location }}</td>
                                     <td>{{ issue.status }}</td>

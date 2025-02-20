@@ -172,7 +172,7 @@ html, body {
 /* Table Styling for View Issues Page */
 .issues-container {
     margin-top: 50px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgb(132 167 122 / 80%);;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -189,16 +189,17 @@ html, body {
 .issues-table th, .issues-table td {
     padding: 15px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 3.5px solid #2e8b57;
 }
 
 .issues-table th {
     background-color: #2e8b57;
     color: white;
+    border-radius: 0px;
 }
 
 .issues-table tr:hover {
-    background-color: #f5f5f5;
+    background-color: #ddd;
 }
 
 .issues-table a {
@@ -371,6 +372,33 @@ html, body {
         width: 80%;
         margin-bottom: 20px; /* Spacing between boxes */
     }
+}
+
+/* Style for the buttons */
+.button {
+    display: inline-block;
+    background-color: #00b34e; /* Button background color */
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    padding-top: 10px;
+    font-size: 30px;
+    border-radius: 5px;
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s ease;
+    border: 5px solid rgb(0, 0, 0);}
+
+.button:hover {
+    background-color: #b3aa00; /* Darker shade when hovered */
+}
+
+/* Optional: Style for the back-link container */
+.back-link-container {
+    margin-top: 20px;
+}
+
+.back-link-container .button {
+    margin-right: 10px; /* Add space between the buttons */
 }
 
 /* Styling for the map container */

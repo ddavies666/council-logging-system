@@ -24,6 +24,15 @@ def issue_map(request):
 
 @login_required
 def report_issue(request):
+    """
+    Handles the submission of issues from users, this will include
+    the details of the issue, i.e Title, Description and image upload.
+
+    The inputted data is validated against the IssueForm class and if
+    valid it is saved to the database.
+
+    GPS data is also extracted upon submission.
+    """
     if request.method == 'POST':
         form = IssueForm(request.POST, request.FILES)  # Include request.FILES to handle image upload
         if form.is_valid():  # This validates the form and the file
@@ -38,11 +47,11 @@ def report_issue(request):
             else:
                 print('No GPS data found in the image.')
 
-            # Now save the issue after extracting GPS data
+            # save the issue after extracting GPS data
             issue.save()
 
             # Redirect after saving the issue
-            return redirect('issue_submitted')  # Adjust to your desired URL after submission
+            return redirect('issue_submitted')  
     else:
         form = IssueForm()
 

@@ -87,7 +87,6 @@
             <a href="{% url 'assigned_issues' %}" class="active-link">Assigned Issues</a>
         {% else %}
             <a href="{% url 'view_issues' %}">View Issues</a>
-            
         {% endif %}
         <div class="user-section">
             {% if user.is_authenticated %}
@@ -111,7 +110,11 @@
                     <thead>
                         <tr>
                             <th>Issue Title <br><input type="text" class="search-input" id="search-title" placeholder="Search by Title" onkeyup="searchTable()"></th>
-                            <th>Date Logged <br><input type="date" class="search-input" id="search-date" onchange="searchTable()"></th>
+                            <th>
+                                Date Logged 
+                                <button onclick="sortTableByDate()">Sort Dates</button>
+                                <br><input type="date" class="search-input" id="search-date" onchange="searchTable()">
+                            </th>
                             <th>Description</th>
                             <th>Location <br><input type="text" class="search-input" id="search-location" placeholder="Search by Location" onkeyup="searchTable()"></th>
                             <th>Status <br><select class="search-input" id="search-status" onchange="searchTable()">
@@ -120,8 +123,7 @@
                                 <option value="In Progress">In Progress</option>
                                 <option value="Resolved">Resolved</option>
                             </select>
-                            
-                            <th>Image</th>
+                             <th>Image</th>
                             {% if user.is_staff %}
                                 <th>Assignee / Resource</th>                            
                                 <th>Actions</th>
@@ -221,6 +223,25 @@
                     row.style.display = 'none';
                 }
             });
+        }
+
+        // Function to sort the table by date
+        function sortTableByDate() {
+            var table = document.querySelector('.issues-table tbody');
+            var rows = Array.from(table.querySelectorAll('tr'));
+            var ascending = table.getAttribute('data-sort') !== 'asc'; // Toggle sorting direction
+            
+            rows.sort(function (a, b) {
+                var dateA = new Date(a.querySelector('td:nth-child(2)').textContent.trim());
+                var dateB = new Date(b.querySelector('td:nth-child(2)').textContent.trim());
+
+                return ascending ? dateA - dateB : dateB - dateA;
+            });
+
+            table.innerHTML = ''; // Clear existing rows
+            rows.forEach(row => table.appendChild(row)); // Re-add sorted rows
+
+            table.setAttribute('data-sort', ascending ? 'asc' : 'desc'); // Update sorting direction
         }
     </script>
 </body>

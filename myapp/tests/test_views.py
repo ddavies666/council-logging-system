@@ -76,21 +76,52 @@ def test_assigned_issues_non_staff(client, django_user_model):
 
 
 @pytest.mark.django_db
-def test_login_user(client, django_user_model):
-    django_user_model.objects.create_user(username="testuser", password="password")
-    response = client.post(
-        reverse("login"), {"username": "testuser", "password": "password"}
-    )
-    assert response.status_code == 302  # Redirect to home
+@pytest.mark.parametrize("username, password, expected_status_code, expected_redirect", [
+    ('testuser', 'testpassword', 302, 'home'),  # Valid credentials, should redirect to home
+    ('testuser', 'wrongpassword', 200, None),  # Invalid password, should stay on login page
+    ('wronguser', 'testpassword', 200, None),  # Invalid username, should stay on login page
+
+])
+def test_login_user(client, username, password, expected_status_code, expected_redirect):
+
+    # Create a test user
+    User.objects.create_user(username='testuser', password='testpassword')
+
+    # Post login data
+    login_url = reverse('login')  # Adjust the URL name if necessary
+    response = client.post(login_url, {'username': username, 'password': password})
+
+    # Check status code and redirection
+    assert response.status_code == expected_status_code
+
+    if expected_redirect:
+        # Check that we redirect to the homepage after successful login
+        assert response.url.endswith(reverse(expected_redirect))
+    else:
+        # If no redirection, check the login page contains the login form
+        assert 'name="username"' in response.content.decode()
+        assert 'name="password"' in response.content.decode()
 
 
 @pytest.mark.django_db
-def test_register_user(client):
+@pytest.mark.parametrize("username, password1, password2, expected_status_code, expected_redirect, expected_error_message", [
+    ('newuser', 'password', 'password', 302, 'home', None),  # Valid registration, should redirect to home
+    ('newuser', 'password', 'differentpassword', 200, None, 'password2'),  # Password mismatch, should stay on the page
+    ('existinguser', 'password', 'password', 200, None, 'username'),  # Username already exists, should stay on the page
+])
+def test_register_user(client, username, password1, password2, expected_status_code, expected_redirect, expected_error_message):
+    # If username already exists, create the user first
+    if expected_error_message == 'username':
+        User.objects.create_user(username='existinguser', password='password')
+
+    # Post registration data
     response = client.post(
         reverse("register"),
-        {"username": "newuser", "password1": "password", "password2": "password"},
+        {"username": username, "password1": password1, "password2": password2},
     )
-    assert response.status_code == 302  # Redirect to home
+
+    # Check the status code
+    assert response.status_code == expected_status_code
 
 
 @pytest.mark.django_db
