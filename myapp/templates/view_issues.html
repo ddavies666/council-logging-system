@@ -80,12 +80,14 @@
     <div class="navbar">
         <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
         <a href="{% url 'report_issue' %}">Report Issue</a>
+        <a href="{% url 'issue_map' %}">Issue Map</a>
+
         {% if user.is_staff %}
             <a href="{% url 'view_issues' %}">Manage Issues</a>
             <a href="{% url 'assigned_issues' %}" class="active-link">Assigned Issues</a>
         {% else %}
             <a href="{% url 'view_issues' %}">View Issues</a>
-            <a href="{% url 'issue_map' %}">Issue Map</a>
+            
         {% endif %}
         <div class="user-section">
             {% if user.is_authenticated %}
@@ -112,7 +114,13 @@
                             <th>Date Logged <br><input type="date" class="search-input" id="search-date" onchange="searchTable()"></th>
                             <th>Description</th>
                             <th>Location <br><input type="text" class="search-input" id="search-location" placeholder="Search by Location" onkeyup="searchTable()"></th>
-                            <th>Status <br><input type="text" class="search-input" id="search-status" placeholder="Search by Status" onkeyup="searchTable()"></th>
+                            <th>Status <br><select class="search-input" id="search-status" onchange="searchTable()">
+                                <option value="">All Statuses</option> <!-- This ensures no filtering when selected -->
+                                <option value="Open">Open</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Resolved">Resolved</option>
+                            </select>
+                            
                             <th>Image</th>
                             {% if user.is_staff %}
                                 <th>Assignee / Resource</th>                            
