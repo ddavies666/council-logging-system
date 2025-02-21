@@ -207,3 +207,35 @@ def issue_analysis(request, issue_id):
     comments = Analysis.objects.filter(issue=issue).order_by('-created_at')
 
     return render(request, 'issue_analysis.html', {'issue': issue, 'form': form, 'comments': comments})
+
+
+@login_required
+def view_analysis(request):
+    # Fetch all analysis records from the database
+    analyses = Analysis.objects.all().order_by('-created_at')
+
+    return render(request, 'view_analysis.html', {'analyses': analyses})
+
+
+@login_required
+def update_analysis(request, analysis_id):
+    analysis = get_object_or_404(Analysis, id=analysis_id)
+
+    if request.method == "POST":
+        form = AnalysisForm(request.POST, instance=analysis)
+        if form.is_valid():
+            form.save()
+            return redirect('view_analysis')
+    else:
+        form = AnalysisForm(instance=analysis)
+
+    return render(request, 'update_analysis.html', {'form': form, 'analysis': analysis})
+
+
+@login_required
+def delete_analysis(request, analysis_id):
+    analysis = get_object_or_404(Analysis, id=analysis_id)
+    issue_id = analysis.issue.id  # Capture issue ID before deletion
+    analysis.delete()
+
+    return redirect('view_analysis')

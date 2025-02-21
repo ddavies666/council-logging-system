@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analyze Issue - Chalkstone Council</title>
+    <title>Update Issue Analysis - Chalkstone Council</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
@@ -32,9 +32,9 @@
 
     <!-- Main Content Area -->
     <div class="content">
-        <h1>Analyze Issue {{ issue.id }}</h1>
+        <h1>Update Analysis for Issue {{ issue.id }}</h1>
         <p>{{ issue.title }}</p>
-        <p>Provide your expert analysis of this issue, including estimated cost, time, and effort required.</p>
+        <p>Update your analysis for this issue, including estimated cost, time, and effort required.</p>
 
         <!-- Analysis Form -->
         <form method="POST" enctype="multipart/form-data">
@@ -42,46 +42,46 @@
             <div class="form-container">
                 <!-- Staff Comment -->
                 <label for="comment">Analysis Comment:</label>
-                <textarea name="comment" id="comment" required placeholder="Provide your analysis of the issue" rows="4">{{ form.comment.value }}</textarea>
+                <textarea name="comment" id="comment" rows="4">{{ analysis.comment }}</textarea>
         
                 <!-- Cost Estimation -->
-                <label for="cost">Estimated Cost (£): <span id="cost-value">{{ form.estimated_cost.value|default:"500" }}</span></label>
-                <input type="range" id="cost" name="estimated_cost" min="0" max="10000" value="500" step="100" oninput="updateValue('cost')">
+                <label for="cost">Estimated Cost (£): <span id="cost-value">{{ analysis.estimated_cost }}</span></label>
+                <input type="range" id="cost" name="estimated_cost" min="0" max="10000" value="{{ issue.analysis.estimated_cost }}" step="100" oninput="updateValue('cost')">
         
                 <!-- Time Estimation -->
-                <label for="time">Estimated Time to Resolve (days): <span id="time-value">{{ form.estimated_time.value|default:"30" }}</span></label>
-                <input type="range" id="time" name="estimated_time" min="1" max="365" value="30" step="1" oninput="updateValue('time')">
+                <label for="time">Estimated Time to Resolve (days): <span id="time-value">{{ analysis.estimated_time }}</span></label>
+                <input type="range" id="time" name="estimated_time" min="1" max="365" value="{{ issue.analysis.estimated_time }}" step="1" oninput="updateValue('time')">
                 
                 <!-- Energy Required -->
                 <label for="energy_required">Energy Required:</label>
                 <select id="energy_required" name="energy_required">
-                    <option value="low" {% if form.energy_required.value == "low" %}selected{% endif %}>Low</option>
-                    <option value="medium" {% if form.energy_required.value == "medium" %}selected{% endif %}>Medium</option>
-                    <option value="high" {% if form.energy_required.value == "high" %}selected{% endif %}>High</option>
+                    <option value="low" {% if issue.analysis.energy_required == "low" %}selected{% endif %}>Low</option>
+                    <option value="medium" {% if issue.analysis.energy_required == "medium" %}selected{% endif %}>Medium</option>
+                    <option value="high" {% if issue.analysis.energy_required == "high" %}selected{% endif %}>High</option>
                 </select>
         
                 <!-- Priority Level -->
-                <label for="priority_level">Priority Level: <span id="priority-value">{{ form.priority_level.value|default:"5" }}</span></label>
-                <input type="range" id="priority_level" name="priority_level" min="1" max="10" value="5" step="1" oninput="updateValue('priority_level')">
+                <label for="priority_level">Priority Level: <span id="priority-value">{{ analysis.priority_level }}</span></label>
+                <input type="range" id="priority_level" name="priority_level" min="1" max="10" value="{{ issue.analysis.priority_level }}" step="1" oninput="updateValue('priority_level')">
                 
                 <!-- Recommended Action -->
                 <label for="recommended_action">Recommended Action:</label>
                 <select id="recommended_action" name="recommended_action">
-                    <option value="repair" {% if form.recommended_action.value == "repair" %}selected{% endif %}>Repair</option>
-                    <option value="replace" {% if form.recommended_action.value == "replace" %}selected{% endif %}>Replace</option>
-                    <option value="monitor" {% if form.recommended_action.value == "monitor" %}selected{% endif %}>Monitor</option>
-                    <option value="refer" {% if form.recommended_action.value == "refer" %}selected{% endif %}>Refer to External Team</option>
+                    <option value="repair" {% if issue.analysis.recommended_action == "repair" %}selected{% endif %}>Repair</option>
+                    <option value="replace" {% if issue.analysis.recommended_action == "replace" %}selected{% endif %}>Replace</option>
+                    <option value="monitor" {% if issue.analysis.recommended_action == "monitor" %}selected{% endif %}>Monitor</option>
+                    <option value="refer" {% if issue.analysis.recommended_action == "refer" %}selected{% endif %}>Refer to External Team</option>
                 </select>
                 
                 <!-- Environmental Impact -->
-                <label for="environmental_impact">Environmental Impact (0-100): <span id="impact-value">{{ form.environmental_impact.value|default:"50" }}</span></label>
-                <input type="range" id="environmental_impact" name="environmental_impact" min="0" max="100" value="50" step="1" oninput="updateValue('impact')">
+                <label for="environmental_impact">Environmental Impact (0-100): <span id="impact-value">{{ issue.analysis.environmental_impact }}</span></label>
+                <input type="range" id="environmental_impact" name="environmental_impact" min="0" max="100" value="{{ issue.analysis.environmental_impact }}" step="1" oninput="updateValue('impact')">
                 
                 <!-- Supporting Document Upload -->
                 <label for="supporting_document">Upload Supporting Document (if any):</label>
                 <input type="file" id="supporting_document" name="supporting_document">
         
-                <button type="submit">Submit Analysis</button>
+                <button type="submit">Update Analysis</button>
             </div>
         </form>
     </div>

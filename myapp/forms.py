@@ -55,5 +55,5 @@ class AnalysisForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         # Set default values for the required fields
         if not self.instance.pk:
-            self.fields['energy_required'].initial = 'medium'  # Default value for energy_required
-            self.fields['recommended_action'].initial = 'repair'  # Default value for recommended_action
+            self.fields['energy_required'].initial = 'Medium'  # Default value for energy_required
+            self.fields['recommended_action'].initial = 'Repair'  # Default value for recommended_action

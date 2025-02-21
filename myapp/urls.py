@@ -18,7 +18,10 @@ urlpatterns = [
     path('assigned-issues/', views.assigned_issues, name='assigned_issues'),
     path('submitted-issue/', views.submitted_issue, name='issue_submitted'),
     path('issue-map/', views.issue_map, name='issue_map'),
-    path('issue/<int:issue_id>/analysis', views.issue_analysis, name='issue_analysis')]
+    path('issue/<int:issue_id>/analysis', views.issue_analysis, name='issue_analysis'),
+    path('view-analysis/', views.view_analysis, name='view_analysis'),
+    path('analysis/update/<int:analysis_id>/', views.update_analysis, name='update_analysis'),
+    path('analysis/delete/<int:analysis_id>/', views.delete_analysis, name='delete_analysis')]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

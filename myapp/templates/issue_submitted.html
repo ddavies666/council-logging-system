@@ -17,6 +17,7 @@
     {% if user.is_staff %}
         <a href="{% url 'assigned_issues' %}" class="active-link">Assigned Issues</a>
         <a href="{% url 'view_issues' %}">Manage Issues</a>
+        <a href="{% url 'view_analysis' %}" class="active-link">Issue Analysis</a>
     {% endif %}
     <div class="user-section">
         {% if user.is_authenticated %}

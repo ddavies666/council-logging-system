@@ -16,6 +16,7 @@
         <a href="{% url 'view_issues' %}">View Issues</a>
         {% if user.is_staff %}
             <a href="{% url 'issue_management' %}">Issue Management</a>
+            <a href="{% url 'view_analysis' %}" class="active-link">Issue Analysis</a>
         {% endif %}
 
         <div class="user-section">
