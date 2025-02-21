@@ -79,7 +79,8 @@
 
                             {% if user.is_staff %}
                                 <td>
-                                    <!-- Update and Delete actions -->
+                                    <!-- Analyse, Update and Delete actions -->
+                                    <a href="{% url 'issue_analysis' issue.id %}" class="action-link">Analyse</a> | 
                                     <a href="{% url 'update_issue' issue.id %}" class="action-link">Update</a> | 
                                     <a href="{% url 'delete_issue' issue.id %}" class="action-link" onclick="return confirm('Are you sure you want to delete this issue?');">Delete</a>
                                 </td>

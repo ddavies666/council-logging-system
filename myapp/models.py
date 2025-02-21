@@ -80,3 +80,34 @@ class Issue(models.Model):
         if ref in ['S', 'W']:
             decimal *= -1
         return decimal
+
+
+class Analysis(models.Model):
+    ENERGY_CHOICES = [
+        ('low', 'Low'),
+        ('medium', 'Medium'),
+        ('high', 'High')
+    ]
+
+    ACTION_CHOICES = [
+        ('repair', 'Repair'),
+        ('replace', 'Replace'),
+        ('monitor', 'Monitor'),
+        ('refer', 'Refer to External Team')
+    ]
+
+    issue = models.ForeignKey('Issue', on_delete=models.CASCADE, related_name='analysis')
+    staff_member = models.ForeignKey(User, on_delete=models.CASCADE, db_column='staff_member_id')
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    estimated_cost = models.IntegerField(help_text="Estimated cost in GBP", null=True, blank=True)
+    estimated_time = models.IntegerField(help_text="Estimated time to fix in days", null=True, blank=True)
+    energy_required = models.CharField(max_length=10, choices=ENERGY_CHOICES, default='medium', null=True)
+    priority_level = models.IntegerField(help_text="Priority level (1-10)", null=True, blank=True)
+    recommended_action = models.CharField(max_length=20, choices=ACTION_CHOICES, default='repair')
+    environmental_impact = models.IntegerField(help_text="Environmental impact (0-100)", null=True, blank=True)
+    supporting_document = models.FileField(upload_to='analysis_docs/', null=True, blank=True)
+
+    def __str__(self):
+        return f'Analysis by {self.staff_member.username} on {self.issue.title}'

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Issue
-from .forms import IssueForm
+from .models import Issue, Analysis
+from .forms import IssueForm, AnalysisForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -179,3 +179,31 @@ def delete_issue(request, issue_id):
     issue = get_object_or_404(Issue, id=issue_id)
     issue.delete()
     return redirect('view_issues')
+
+
+@login_required
+def issue_analysis(request, issue_id):
+    issue = get_object_or_404(Issue, pk=issue_id)
+
+    # Ensure only staff can add comments
+    if not request.user.is_staff:
+        return HttpResponseForbidden("You do not have permission to access this page.")
+
+    if request.method == 'POST':
+        form = AnalysisForm(request.POST, request.FILES)  # Ensure files are handled
+        if form.is_valid():
+            analysis = form.save(commit=False)
+            analysis.issue = issue
+            analysis.staff_member = request.user
+            analysis.save()
+            return redirect('view_issues')
+        else:
+            # Log the errors for debugging
+            print(form.errors)
+
+    else:
+        form = AnalysisForm()
+
+    comments = Analysis.objects.filter(issue=issue).order_by('-created_at')
+
+    return render(request, 'issue_analysis.html', {'issue': issue, 'form': form, 'comments': comments})
