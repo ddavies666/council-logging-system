@@ -11,9 +11,15 @@
     <!-- Navigation Bar -->
     <div class="navbar">
         <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
-        <a href="{% url 'view_analysis' %}" class="active-link">View Analysis</a>
-        <a href="{% url 'view_issues' %}">View Issues</a>
-        
+        <a href="{% url 'report_issue' %}">Report Issue</a>
+        <a href="{% url 'issue_map' %}">Issue Map</a>
+        {% if user.is_staff %}
+            <a href="{% url 'view_issues' %}">Manage Issues</a>
+            <a href="{% url 'assigned_issues' %}" class="active-link">Assigned Issues</a>
+            <a href="{% url 'view_analysis' %}" class="active-link">Issue Analysis</a>
+        {% else %}
+            <a href="{% url 'view_issues' %}">View Issues</a>
+        {% endif %}
         <div class="user-section">
             {% if user.is_authenticated %}
                 <span class="user-info">{{ user.username }}</span>
@@ -32,6 +38,8 @@
         <!-- Analysis List -->
         <div class="issues-container">
             {% if analyses %}
+            <a href="{% url 'export_analysis_report' %}" class="analysis-button">Export to Excel</a>
+
                 <table class="issues-table">
                     <thead>
                         <tr>
@@ -66,11 +74,13 @@
                             </tr>
                         {% endfor %}
                     </tbody>
+                   
                 </table>
             {% else %}
                 <p>No analysis reports available.</p>
             {% endif %}
         </div>
     </div>
+    
 </body>
 </html>

@@ -4,7 +4,8 @@ from .forms import IssueForm, AnalysisForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponse
+import openpyxl
 
 
 def home(request):
@@ -239,3 +240,41 @@ def delete_analysis(request, analysis_id):
     analysis.delete()
 
     return redirect('view_analysis')
+
+
+
+def export_analysis_report(request):
+    # Fetch the analysis data you want to export
+    analyses = Analysis.objects.all()
+
+    # Create a new workbook and sheet
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = 'Analysis Report'
+
+    # Add headers to the sheet
+    headers = ['Issue ID', 'Analysis Comment', 'Estimated Cost', 'Estimated Time', 'Energy Required', 'Priority Level', 'Recommended Action', 'Environmental Impact']
+    ws.append(headers)
+
+    # Add the data to the sheet
+    for analysis in analyses:
+        row = [
+            analysis.issue.id,
+            analysis.comment,
+            analysis.estimated_cost,
+            analysis.estimated_time,
+            analysis.energy_required,
+            analysis.priority_level,
+            analysis.recommended_action,
+            analysis.environmental_impact,
+        ]
+        ws.append(row)
+
+    # Set the response as an Excel file
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=analysis_report.xlsx'
+    
+    # Save the workbook to the response
+    wb.save(response)
+    
+    return response

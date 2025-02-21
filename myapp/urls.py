@@ -21,7 +21,8 @@ urlpatterns = [
     path('issue/<int:issue_id>/analysis', views.issue_analysis, name='issue_analysis'),
     path('view-analysis/', views.view_analysis, name='view_analysis'),
     path('analysis/update/<int:analysis_id>/', views.update_analysis, name='update_analysis'),
-    path('analysis/delete/<int:analysis_id>/', views.delete_analysis, name='delete_analysis')]
+    path('analysis/delete/<int:analysis_id>/', views.delete_analysis, name='delete_analysis'),
+    path('export-analysis-report/', views.export_analysis_report, name='export_analysis_report')]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
