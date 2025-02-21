@@ -43,9 +43,11 @@
                 <table class="issues-table">
                     <thead>
                         <tr>
+                            <th>Issue ID</th>
                             <th>Issue Title</th>
                             <th>Analysis Date</th>
                             <th>Comment</th>
+                            <th>Left by</th>
                             <th>Estimated Cost (£)</th>
                             <th>Estimated Time (Days)</th>
                             <th>Energy Required</th>
@@ -58,9 +60,11 @@
                     <tbody>
                         {% for analysis in analyses %}
                             <tr>
+                                <td>{{ analysis.issue.id }}</td>
                                 <td>{{ analysis.issue.title }}</td>
                                 <td>{{ analysis.created_at|date:"Y-m-d" }}</td>
                                 <td>{{ analysis.comment }}</td>
+                                <td>{{ analysis.staff_member }}</td>
                                 <td>{{ analysis.estimated_cost }}</td>
                                 <td>{{ analysis.estimated_time }}</td>
                                 <td>{{ analysis.energy_required }}</td>

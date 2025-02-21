@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden, HttpResponse
 import openpyxl
-
+from datetime import datetime
 
 def home(request):
     # Fetch all issues from the database
@@ -197,7 +197,7 @@ def issue_analysis(request, issue_id):
             analysis.issue = issue
             analysis.staff_member = request.user
             analysis.save()
-            return redirect('view_issues')
+            return redirect('view_analysis')
         else:
             # Log the errors for debugging
             print(form.errors)
@@ -242,25 +242,28 @@ def delete_analysis(request, analysis_id):
     return redirect('view_analysis')
 
 
-
 def export_analysis_report(request):
+
     # Fetch the analysis data you want to export
     analyses = Analysis.objects.all()
 
+    date = datetime.now().strftime('%Y-%m-%d')
     # Create a new workbook and sheet
     wb = openpyxl.Workbook()
     ws = wb.active
-    ws.title = 'Analysis Report'
+    ws.title = f'Analysis_Report_{date}'
 
     # Add headers to the sheet
-    headers = ['Issue ID', 'Analysis Comment', 'Estimated Cost', 'Estimated Time', 'Energy Required', 'Priority Level', 'Recommended Action', 'Environmental Impact']
+    headers = ['Issue ID', 'Issue Title', 'Analysis Comment', 'Left By', 'Estimated Cost (£)', 'Estimated Time (Days)', 'Energy Required', 'Priority Level (1-10)', 'Recommended Action', 'Environmental Impact (1-100)']
     ws.append(headers)
-
+    
     # Add the data to the sheet
     for analysis in analyses:
         row = [
             analysis.issue.id,
+            analysis.issue.title,
             analysis.comment,
+            analysis.staff_member.username,
             analysis.estimated_cost,
             analysis.estimated_time,
             analysis.energy_required,
@@ -272,9 +275,9 @@ def export_analysis_report(request):
 
     # Set the response as an Excel file
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=analysis_report.xlsx'
-    
+    response['Content-Disposition'] = f'attachment; filename=analysis_report_{date}.xlsx'
+
     # Save the workbook to the response
     wb.save(response)
-    
+
     return response
