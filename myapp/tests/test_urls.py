@@ -20,9 +20,9 @@ from myapp.views import (
 @mark.parametrize(
         "template_url, kwargs, expected_output, should_fail",
         [
-            # (
-            #     'not-valid-url', {}, NoReverseMatch, True
-            # ),
+            (
+                'not-valid-url', {}, NoReverseMatch, True
+            ),
 
             (
                 'home', {}, home, False
