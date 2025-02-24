@@ -4,7 +4,7 @@
 ![alt text](media/image.png)
 
 ## Overview
-The Chalkstone Council Issue Reporting System is a Django-based web application designed to help council staff and citizens log, analsze, and track issues related to public assets and services. The system enables users to report problems such as potholes, street lighting faults, graffiti, anti-social behavior, fly-tipping, and blocked drains.
+The Chalkstone Council Issue Reporting System is a Django-based web application designed to help council staff and citizens log, analyse, and track issues related to public assets and services. The system enables users to report problems such as potholes, street lighting faults, graffiti, anti-social behavior, fly-tipping, and blocked drains.
 
 ## Features
 - **Issue Reporting:** Users can submit new issues with descriptions, locations, and optional image uploads.
