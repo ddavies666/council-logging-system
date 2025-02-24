@@ -72,6 +72,12 @@ def view_issues(request):
 
 @login_required
 def assigned_issues(request):
+    """
+    View to display issues filtered on current logged in staff user.
+
+    Showing only issues with logged in staff user as assignee.
+
+    """
     # Check if the user is a staff member
     if not request.user.is_staff:
         return HttpResponseForbidden("You do not have permission to view this page.")
@@ -151,7 +157,13 @@ def issue_management(request):
 
 
 @login_required
-def update_issue(request, issue_id):
+def update_issue(request, issue_id: int):
+    """
+    Update existing issue.
+
+    Change status and other fields.
+
+    """
     # Fetch the issue object
     issue = get_object_or_404(Issue, pk=issue_id)
     
@@ -174,22 +186,37 @@ def update_issue(request, issue_id):
 # Delete an issue - staff only
 @login_required
 def delete_issue(request, issue_id):
+    """
+    Delete an existing issue from the Issues database
+    """
+    
     if not request.user.is_staff:
         return HttpResponseForbidden("You do not have permission to access this page.")
-
+    
+    # Get Issue with specific id from the GUI
     issue = get_object_or_404(Issue, id=issue_id)
+
+    # Delete Issue
     issue.delete()
+
+    # Redirect to view issues tab
     return redirect('view_issues')
 
 
 @login_required
-def issue_analysis(request, issue_id):
+def submit_analysis(request, issue_id: int):
+    """
+    Submit analyses for issues
+
+    If the analysis form is valid, it is saved to the analysis database
+    """
     issue = get_object_or_404(Issue, pk=issue_id)
 
     # Ensure only staff can add comments
     if not request.user.is_staff:
         return HttpResponseForbidden("You do not have permission to access this page.")
 
+    # If form is valid, same to database, else render form again
     if request.method == 'POST':
         form = AnalysisForm(request.POST, request.FILES)  # Ensure files are handled
         if form.is_valid():
@@ -212,6 +239,9 @@ def issue_analysis(request, issue_id):
 
 @login_required
 def view_analysis(request):
+    """
+    View Issue Analysis
+    """
     # Fetch all analysis records from the database
     analyses = Analysis.objects.all().order_by('-created_at')
 
@@ -219,9 +249,14 @@ def view_analysis(request):
 
 
 @login_required
-def update_analysis(request, analysis_id):
+def update_analysis(request, analysis_id: int):
+    """
+    Update existing Analysis record
+    """
+    # Get the specific analysis record based on id
     analysis = get_object_or_404(Analysis, id=analysis_id)
 
+    # If update form is valid, save the newly updated issue.
     if request.method == "POST":
         form = AnalysisForm(request.POST, instance=analysis)
         if form.is_valid():
@@ -234,17 +269,26 @@ def update_analysis(request, analysis_id):
 
 
 @login_required
-def delete_analysis(request, analysis_id):
+def delete_analysis(request, analysis_id: int):
+    """
+    Delete Analysis record
+
+    Removes the analysis record from the database and view.
+
+    """
     analysis = get_object_or_404(Analysis, id=analysis_id)
-    issue_id = analysis.issue.id  # Capture issue ID before deletion
     analysis.delete()
 
     return redirect('view_analysis')
 
 
 def export_analysis_report(request):
+    """
+    Export issue analysis data to excel workbook
 
-    # Fetch the analysis data you want to export
+    """
+
+    # Fetch the analysis data from the issues
     analyses = Analysis.objects.all()
 
     date = datetime.now().strftime('%Y-%m-%d')
@@ -254,7 +298,10 @@ def export_analysis_report(request):
     ws.title = f'Analysis_Report_{date}'
 
     # Add headers to the sheet
-    headers = ['Issue ID', 'Issue Title', 'Analysis Comment', 'Left By', 'Estimated Cost (£)', 'Estimated Time (Days)', 'Energy Required', 'Priority Level (1-10)', 'Recommended Action', 'Environmental Impact (1-100)']
+    headers = [
+        'Issue ID', 'Issue Title', 'Analysis Comment', 'Left By', 'Estimated Cost (£)',
+        'Estimated Time (Days)', 'Energy Required', 'Priority Level (1-10)', 'Recommended Action',
+        'Environmental Impact (1-100)']
     ws.append(headers)
     
     # Add the data to the sheet
