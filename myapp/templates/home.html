@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chalkstone Council</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+     <!-- Leaflet.js CSS -->
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <!-- Navigation Bar -->
+   <div class="navbar">
+    <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
+    <a href="{% url 'report_issue' %}">Report Issue</a>
+    <a href="{% url 'issue_map' %}">Issue Map</a>
+    {% if user.is_staff %}
+        <a href="{% url 'view_issues' %}">Manage Issues</a>
+        <a href="{% url 'assigned_issues' %}">Assigned Issues</a>
+        <a href="{% url 'view_analysis' %}" class="active-link">Issue Analysis</a>
+    {% else %}
+    <a href="{% url 'view_issues' %}">View Issues</a>
+
+    {% endif %}
+
+        <div class="user-section">
+            {% if user.is_authenticated %}
+                <span class="user-info">{{ user.username }}</span>
+                <a href="{% url 'logout' %}" class="login-link">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="login-link">Login</a>
+            {% endif %}
+        </div>
+    </div>
+    <!-- Main Content Area -->
+    <div class="content-home">
+        <!-- New Headline -->
+        <h2 class="headline">Start Logging Issues Today</h2>
+      
+    </div>
+<!-- Main Content Area -->
+    <div class="content-home">
+        <h1>Make Chalkstone Council a better place for Everyone</h1>
+        <p>Here you can report issues and view the status of reported issues in your community. Together, let's make Chalkstone a better place to live!</p>
+        <div class="cta-section">
+            <div class="cta-box">
+                <img src="{% static 'images/CTA2.png' %}">
+            </div>
+        
+        <!-- Action Boxes -->
+        <div class="action-boxes">
+            <div class="box">
+                <a href="{% url 'login' %}">
+                    <h2>Register & Login</h2>
+                    <p>Login if you have an account. If not, register today!</p>
+                </a>
+            </div>
+            <div class="box">
+                <a href="{% url 'report_issue' %}">
+                    <h2>Log Issue</h2>
+                    <p>Report an issue you've encountered in the Chalkstone community.</p>
+                </a>
+            </div>
+            <div class="box">
+                <a href="{% url 'view_issues' %}">
+                    {% if user.is_staff %}
+                        <h2>Manage Issues</h2>
+                    {% else %}
+                    <h2>View Issues</h2>
+                     {% endif %}
+
+                    <p>See the status of the issues reported by others in your area.</p>
+                </a>
+            </div>
+
+            <!-- {% if user.is_staff %} -->
+                <!-- Action Box for Staff
+                <div class="box">
+                    <a href="{% url 'issue_management' %}">
+                        <h2>Issue Management</h2>
+                        <p>Manage and resolve issues reported by users in the community.</p>
+                    </a>
+                </div>
+            {% endif %} -->
+        </div>
+    </div>
+        <!-- Map Container -->
+<div id="home_map"></div>
+
+<!-- Include Leaflet.js JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    var map = L.map('home_map').setView([51.19158, 0.276540], 14); // Default view
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    {% for issue in issues %}
+        {% if issue.latitude and issue.longitude %}
+            // Debugging: print the coordinates to the console
+            console.log("Latitude: {{ issue.latitude|floatformat:6 }}, Longitude: {{ issue.longitude|floatformat:6 }}");
+
+            var lat = {{ issue.latitude|floatformat:6 }};
+            var lon = {{ issue.longitude|floatformat:6 }};
+
+            // Debugging: print parsed coordinates
+            console.log("Parsed Lat/Lon: " + lat + ", " + lon);
+
+            var marker = L.marker([lat, lon]).addTo(map)
+                .bindPopup("<b>{{ issue.title|escapejs }}</b><br>Status: {{ issue.status|escapejs }}</b><br>Date Logged: {{ issue.created_at|escapejs }}");
+        {% else %}
+            console.log("Issue {{ issue.title|escapejs }} does not have valid coordinates.");
+        {% endif %}
+    {% endfor %}
+</script>
+</body>
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; 2025 Chalkstone Council. All Rights Reserved.</p>
+</footer>
+
+</html>

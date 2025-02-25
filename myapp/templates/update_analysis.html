@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Issue Analysis - Chalkstone Council</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
+        <a href="{% url 'report_issue' %}">Report Issue</a>
+        <a href="{% url 'issue_map' %}">Issue Map</a>
+        {% if user.is_staff %}
+            <a href="{% url 'view_issues' %}">Manage Issues</a>
+            <a href="{% url 'assigned_issues' %}" class="active-link">Assigned Issues</a>
+            <a href="{% url 'view_analysis' %}" class="active-link">Issue Analysis</a>
+        {% else %}
+            <a href="{% url 'view_issues' %}">View Issues</a>
+        {% endif %}
+        <div class="user-section">
+            {% if user.is_authenticated %}
+                <span class="user-info">{{ user.username }}</span>
+                <a href="{% url 'logout' %}" class="login-link">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="login-link">Login</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content">
+        <h1>Update Analysis for Issue {{ issue.id }}</h1>
+        <p>{{ issue.title }}</p>
+        <p>Update your analysis for this issue, including estimated cost, time, and effort required.</p>
+
+        <!-- Analysis Form -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-container">
+                <!-- Staff Comment -->
+                <label for="comment">Analysis Comment:</label>
+                <textarea name="comment" id="comment" rows="4">{{ analysis.comment }}</textarea>
+        
+                <!-- Cost Estimation -->
+                <label for="cost">Estimated Cost (£): <span id="cost-value">{{ analysis.estimated_cost }}</span></label>
+                <input type="range" id="cost" name="estimated_cost" min="0" max="10000" value="{{ issue.analysis.estimated_cost }}" step="100" oninput="updateValue('cost')">
+        
+                <!-- Time Estimation -->
+                <label for="time">Estimated Time to Resolve (days): <span id="time-value">{{ analysis.estimated_time }}</span></label>
+                <input type="range" id="time" name="estimated_time" min="1" max="365" value="{{ issue.analysis.estimated_time }}" step="1" oninput="updateValue('time')">
+                
+                <!-- Energy Required -->
+                <label for="energy_required">Energy Required:</label>
+                <select id="energy_required" name="energy_required">
+                    <option value="low" {% if issue.analysis.energy_required == "low" %}selected{% endif %}>Low</option>
+                    <option value="medium" {% if issue.analysis.energy_required == "medium" %}selected{% endif %}>Medium</option>
+                    <option value="high" {% if issue.analysis.energy_required == "high" %}selected{% endif %}>High</option>
+                </select>
+        
+                <!-- Priority Level -->
+                <label for="priority_level">Priority Level: <span id="priority-value">{{ analysis.priority_level }}</span></label>
+                <input type="range" id="priority_level" name="priority_level" min="1" max="10" value="{{ issue.analysis.priority_level }}" step="1" oninput="updateValue('priority_level')">
+                
+                <!-- Recommended Action -->
+                <label for="recommended_action">Recommended Action:</label>
+                <select id="recommended_action" name="recommended_action">
+                    <option value="repair" {% if issue.analysis.recommended_action == "repair" %}selected{% endif %}>Repair</option>
+                    <option value="replace" {% if issue.analysis.recommended_action == "replace" %}selected{% endif %}>Replace</option>
+                    <option value="monitor" {% if issue.analysis.recommended_action == "monitor" %}selected{% endif %}>Monitor</option>
+                    <option value="refer" {% if issue.analysis.recommended_action == "refer" %}selected{% endif %}>Refer to External Team</option>
+                </select>
+                
+                <!-- Environmental Impact -->
+                <label for="environmental_impact">Environmental Impact (0-100): <span id="impact-value">{{ issue.analysis.environmental_impact }}</span></label>
+                <input type="range" id="environmental_impact" name="environmental_impact" min="0" max="100" value="{{ issue.analysis.environmental_impact }}" step="1" oninput="updateValue('impact')">
+                
+                <!-- Supporting Document Upload -->
+                <label for="supporting_document">Upload Supporting Document (if any):</label>
+                <input type="file" id="supporting_document" name="supporting_document">
+        
+                <button type="submit">Update Analysis</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function updateValue(id) {
+            document.getElementById(id + '-value').innerText = document.getElementById(id).value;
+        }
+    </script>
+</body>
+</html>

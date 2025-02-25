@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Management</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
+        <a href="{% url 'report_issue' %}">Report Issue</a>
+        <a href="{% url 'issue_map' %}">Issue Map</a>
+        <a href="{% url 'view_issues' %}">View Issues</a>
+        {% if user.is_staff %}
+            <a href="{% url 'issue_management' %}">Issue Management</a>
+            <a href="{% url 'view_analysis' %}" class="active-link">Issue Analysis</a>
+        {% endif %}
+
+        <div class="user-section">
+            {% if user.is_authenticated %}
+                <span class="user-info">{{ user.username }}</span>
+                <a href="{% url 'logout' %}" class="login-link">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="login-link">Login</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content">
+        <div class="container">
+            <div class="form-container">
+                <h1>Issue Management</h1>
+                <p>Below is the list of open issues that require your attention.</p>
+
+                <!-- Issue List Table -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Issue ID</th>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Assigned To</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for issue in issues %}
+                        <tr>
+                            <td>{{ issue.id }}</td>
+                            <td>{{ issue.title }}</td>
+                            <td>{{ issue.status }}</td>
+                            <td>{{ issue.assigned_to }}</td>
+                            <td>
+                                <a href="{% url 'resolve_issue' issue.id %}" class="resolve-link">Resolve</a>
+                                <a href="{% url 'close_issue' issue.id %}" class="close-link">Close</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No issues to manage.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleForms() {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+            }
+        }
+    </script>
+
+    <style>
+        body {
+          background-image: url('https://www.publicdomainpictures.net/pictures/10000/velka/IMG_0162.jpg');
+          background-repeat: no-repeat;
+          background-attachment: fixed;  
+          background-size: cover;
+        }
+    </style>
+</body>
+</html>

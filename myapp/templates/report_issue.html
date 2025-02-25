@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Issue - Chalkstone Council</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+     <!-- Navigation Bar -->
+   <div class="navbar">
+    <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
+    <a href="{% url 'report_issue' %}">Report Issue</a>
+    <a href="{% url 'issue_map' %}">Issue Map</a>
+    {% if user.is_staff %}
+        <a href="{% url 'view_issues' %}">Manage Issues</a>
+        <a href="{% url 'assigned_issues' %}" class="active-link">Assigned Issues</a>
+        <a href="{% url 'view_analysis' %}" class="active-link">Issue Analysis</a>
+    {% else %}
+        <a href="{% url 'view_issues' %}">View Issues</a>
+
+    {% endif %}
+
+        <div class="user-section">
+            {% if user.is_authenticated %}
+                <span class="user-info">{{ user.username }}</span>
+                <a href="{% url 'logout' %}" class="login-link">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="login-link">Login</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content">
+        <h1>Report an Issue</h1>
+        <p>If you have encountered an issue or concern, please let us know by filling out the form below. Your input helps us improve services in Chalkstone Council.</p>
+
+        <!-- Report Issue Form -->
+        <form action="{% url 'report_issue' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-container">
+                <label for="title">Issue Title</label>
+                <input type="text" id="title" name="title" required placeholder="Enter the issue title">
+
+                <label for="description">Issue Description</label>
+                <textarea id="description" name="description" required placeholder="Describe the issue" rows="4"></textarea>
+
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" required placeholder="Enter the location of the issue">
+
+                <label for="contact_email">Your Email (Optional)</label>
+                <input type="email" id="contact_email" name="contact_email" placeholder="Enter your email (if you want to be contacted)">
+
+                <!-- New field for image upload -->
+                <label for="image">Upload Image (Optional)</label>
+                <input type="file" id="image" name="image" accept="image/*">
+
+                <button type="submit">Submit Report</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

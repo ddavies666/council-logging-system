@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+  <div class="navbar">
+    <a href="{% url 'home' %}" class="logo">Chalkstone Council</a>
+    <a href="{% url 'report_issue' %}">Report Issue</a>
+    <a href="{% url 'issue_map' %}">Issue Map</a>
+    {% if user.is_staff %}
+        <a href="{% url 'view_issues' %}">Manage Issues</a>
+        <a href="{% url 'view_analysis' %}" class="active-link">Issue Analysis</a>
+    {% else %}
+        <a href="{% url 'view_issues' %}">View Issues</a>
+    {% endif %}
+
+        <div class="user-section">
+            {% if user.is_authenticated %}
+                <span class="user-info">{{ user.username }}</span>
+                <a href="{% url 'logout' %}" class="login-link">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="login-link">Login</a>
+            {% endif %}
+        </div>
+    </div>
+    
+
+    <!-- Main Content Area -->
+    <div class="content">
+        <div class="container">
+            <div class="form-container">
+                <h1>Authentication</h1>
+
+                <div id="login-form">
+                    <form action="{% url 'login' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="username" placeholder="Username" required>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <button type="submit">Login</button>
+                    </form>
+                    <div class="toggle">
+                        <p>Don't have an account? <a href="javascript:void(0)" onclick="toggleForms()">Register here</a></p>
+                    </div>
+                </div>
+
+                <div id="register-form" style="display: none;">
+                    <h2>Register</h2>
+                    <form action="{% url 'register' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="username" placeholder="Username" required>
+                        <input type="text" name="email" placeholder="First Name" required>
+                        <input type="text" name="email" placeholder="Last Name" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="password" name="password1" placeholder="Password" required>
+                        <input type="password" name="password2" placeholder="Confirm Password" required>
+                        <button type="submit">Register</button>
+                    </form>
+                    <div class="toggle">
+                        <p>Already have an account? <a href="javascript:void(0)" onclick="toggleForms()">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleForms() {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+            }
+        }
+    </script>
+
+    <style>
+        body {
+          background-image: url('https://www.publicdomainpictures.net/pictures/10000/velka/IMG_0162.jpg');
+          background-repeat: no-repeat;
+          background-attachment: fixed;  
+          background-size: cover;
+        }
+    </style>
+</body>
+</html>

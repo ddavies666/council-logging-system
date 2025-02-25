@@ -1,0 +1,506 @@
+/* Apply the imported font to the entire website */
+html, body {
+    font-family: 'Roboto', sans-serif;
+    height: 100%; /* Ensure the body and html take full height */
+    min-height: 100%; /* Make sure the page height is at least the height of the viewport */
+    /* background-image: url('https://www.publicdomainpictures.net/pictures/10000/velka/IMG_0162.jpg'); Background image */
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    color: white; /* Default text color for contrast */
+    overflow: auto; /* Enable scrolling if content overflows */
+}
+
+/* Basic reset for margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #000000;
+}
+
+/* Style for the top navigation bar */
+.navbar {
+    position: fixed; /* Keep it fixed at the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(46, 139, 87, 0.9); /* Semi-transparent dark green */
+    padding: 20px;
+    z-index: 1000; /* Ensures the navbar is always on top */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Content Styling */
+.content {
+    text-align: center;
+    padding-top: 100px; /* Push content below navbar */
+    height: auto;
+}
+/* Content Styling */
+.content-home {
+    text-align: center;
+    padding-top: 0px; /* Push content below navbar */
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    color: #d1e0d1; /* Lighter green on hover */
+}
+
+.navbar .logo {
+    margin-right: auto; /* Pushes the other navbar items to the right */
+}
+
+.navbar .login-link {
+    margin-left: auto;
+}
+
+.navbar-logo {
+    height: 50px; /* Adjust the logo size */
+    width: auto;
+    margin-left: 20px; /* Add some spacing to the left */
+}
+
+.navbar-logo:hover {
+    opacity: 0.8;
+}
+
+/* Generic page title and paragraph styling */
+.content h1 {
+    font-size: 50px; /* Large heading size */
+    margin-bottom: 20px;
+    /* text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); Text shadow for contrast */
+    color: #000000;
+}
+
+.content-home h1 {
+    font-size: 50px; /* Large heading size */
+    margin-bottom: 20px;
+    /* text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); Text shadow for contrast */
+    color: #000000;
+}
+
+.content-home p {
+    font-size: 28px;
+    margin-bottom: 40px; /* Spacing below paragraph */
+    color: #000000;
+    max-width: 1000px; /* Limit width */
+    margin: 0 auto; /* Center-align text */
+}
+
+
+.content p {
+    font-size: 28px;
+    padding: 10px;
+    margin-bottom: 1000px; /* Spacing below paragraph */
+    color: #000000;
+    max-width: 1000px; /* Limit width */
+    margin: 0 auto; /* Center-align text */
+    padding-bottom: 50px;
+}
+
+/* Specific styles for the form container */
+.form-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    max-width: 600px; /* Limit the form width */
+    margin: 0 auto;
+    border-radius: 10px; /* Rounded corners for the form */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow around the form */
+    border: 1px solid black;
+}
+
+.form-container label {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.form-container input,
+.form-container textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px; /* Rounded corners for input fields */
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 16px;
+}
+
+.form-container textarea {
+    resize: vertical; /* Allow resizing vertically */
+}
+
+.form-container input:focus,
+.form-container textarea:focus {
+    outline: none;
+    border-color: #2e8b57; /* Green border when focused */
+    box-shadow: 0 0 5px rgba(46, 139, 87, 0.5); /* Subtle green glow */
+}
+
+.form-container button {
+    background-color: #2e8b57; /* Green background for button */
+    color: white;
+    padding: 12px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Full width for the button */
+    transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+    background-color: #1f6d3c; /* Darker green on hover */
+}
+
+/* Table Styling for View Issues Page */
+.issues-container {
+    margin-top: 50px;
+    background-color: rgb(132 167 122 / 80%);;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.issues-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.issues-table th, .issues-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 3.5px solid #2e8b57;
+}
+
+.issues-table th {
+    background-color: #2e8b57;
+    color: white;
+    border-radius: 0px;
+}
+
+.issues-table tr:hover {
+    background-color: #ddd;
+}
+
+.issues-table a {
+    color: #2e8b57;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.issues-table a:hover {
+    color: #1f6d3c;
+}
+
+/* Styles for login page */
+.login-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-container label {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 16px;
+}
+
+.login-container button {
+    background-color: #2e8b57;
+    color: white;
+    padding: 12px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Full width for the button */
+    transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+    background-color: #1f6d3c; /* Darker green on hover */
+}
+
+/* Responsive Design for Small Screens */
+@media screen and (max-width: 768px) {
+    .navbar a {
+        font-size: 18px; /* Smaller font size for mobile screens */
+        margin: 0 10px; /* Reduced margin */
+    }
+
+    .content h1 {
+        font-size: 36px; /* Smaller heading size */
+    }
+
+    .content p {
+        font-size: 16px; /* Smaller paragraph text */
+        max-width: 90%; /* Allow content to take more width on mobile */
+    }
+
+    .form-container,
+    .login-container {
+        padding: 15px;
+        margin: 20px 10px;
+    }
+
+    .form-container input,
+    .form-container textarea,
+    .login-container input {
+        font-size: 14px; /* Smaller font size for input fields */
+    }
+
+    .form-container button,
+    .login-container button {
+        font-size: 16px; /* Smaller font size for button */
+    }
+
+    .issues-container {
+        padding: 10px;
+        margin-top: 20px;
+    }
+
+    .issues-table th, .issues-table td {
+        padding: 10px;
+    }
+}
+
+/* Styling for the action boxes */
+.action-boxes {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 100px;
+    
+}
+
+.box {
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 300x;
+    padding: 40px;
+    border-radius: 10px;
+    border: 5px solid black;
+
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.box:hover {
+    transform: scale(1.05); /* Slight scaling effect on hover */
+}
+
+.box h2 {
+    font-size: 54px;
+    margin-bottom: 10px;
+    color: #2e8b57; /* Green color for the headings */
+}
+
+.box p {
+    font-size: 22px;
+    color: #333;
+}
+
+.box a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Responsive Design for Small Screens */
+@media screen and (max-width: 768px) {
+    .navbar a {
+        font-size: 16px; /* Smaller font size for mobile screens */
+        margin: 0 10px; /* Reduced margin */
+    }
+
+    .content h1 {
+        font-size: 40px; /* Smaller heading size */
+    }
+
+    .content p {
+        font-size: 16px; /* Smaller paragraph text */
+        max-width: 90%; /* Allow content to take more width on mobile */
+    }
+
+    .action-boxes {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .box {
+        width: 80%;
+        margin-bottom: 20px; /* Spacing between boxes */
+    }
+}
+
+/* Style for the buttons */
+.button {
+    display: inline-block;
+    background-color: #00b34e; /* Button background color */
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    padding-top: 10px;
+    font-size: 30px;
+    border-radius: 5px;
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s ease;
+    border: 5px solid rgb(0, 0, 0);}
+
+.analysis-button {
+    display: inline-block;
+    background-color: #00b34e; /* Button background color */
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    padding-top: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s ease;
+    border: 1px solid rgb(0, 0, 0);
+    padding-bottom: 10px
+}
+
+.button:hover {
+    background-color: #b3aa00; /* Darker shade when hovered */
+}
+
+/* Optional: Style for the back-link container */
+.back-link-container {
+    margin-top: 20px;
+}
+
+.back-link-container .button {
+    margin-right: 10px; /* Add space between the buttons */
+}
+
+/* Styling for the map container */
+#home_map {
+    margin-top: 100px; /* Push the map below the navbar */
+    height: 800px; /* Fixed height for the map */
+    width: 90%; /* Full width for the map */
+    margin-left: auto; /* Centers the map horizontally */
+    margin-right: auto; /* Centers the map horizontally */
+    margin-bottom: 50px; /* Optional spacing after the map */
+    border: 5px solid black;
+    border-radius: 25px;
+    
+}
+
+#issue_map {
+    margin-top: 20px; /* Push the map below the navbar */
+    height: 500px; /* Fixed height for the map */
+    width: 90%; /* Full width for the map */
+    margin-left: auto; /* Centers the map horizontally */
+    margin-right: auto; /* Centers the map horizontally */
+    margin-bottom: 0px; /* Optional spacing after the map */
+    border: 5px solid black;
+    border-radius: 30px;
+    
+}
+
+/* Styling for the footer */
+.footer {
+    background-color: rgba(46, 139, 87, 0.9); /* Green background */
+    color: white; /* White text color */
+    text-align: center; /* Center align text */
+    padding: 20px; /* Add padding for spacing */
+    position: relative;
+    bottom: 0; /* Ensure the footer stays at the bottom of the page */
+    width: 100%; /* Make the footer span the entire width */
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for a subtle effect */
+    opacity: 10;
+}
+
+/* Optional styling for small screens */
+@media screen and (max-width: 768px) {
+    .footer p {
+        font-size: 16px; /* Adjust the text size for smaller screens */
+    }
+}
+
+.headline {
+    background-image: url('https://cdn.pixabay.com/photo/2017/04/09/09/56/avenue-2215317_960_720.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the image */  
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+    
+    text-shadow: 2px 2px 11px rgba(0, 0, 0, 0.5);
+    display: flex;
+    max-width: 100%;
+    align-items: center;
+    font-size: 70px; /* Size of the headline */
+    font-weight: bold; /* Make it bold */
+    color: #ffffff; /* Green color (same as navbar) */
+    margin-top: 5px; /* Space above the headline */
+    margin-bottom: 40px; /* Space below the headline */
+    text-align: center; /* Center-align the headline */
+    
+    letter-spacing: 2px; /* Add some spacing between letters */
+}
+
+/* Optional: Responsive styling for smaller screens */
+@media screen and (max-width: 768px) {
+    .headline {
+        font-size: 28px; /* Smaller headline size on mobile */
+    }
+}
+
+.user-info {
+    color: white;
+    margin-right: 10px;
+    font-size: 25px;
+}
+
+.user-section {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* This pushes the user-section to the right */
+}
+
