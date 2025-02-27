@@ -1,0 +1,4 @@
+PIL
+pytest
+datetime
+openpyxl

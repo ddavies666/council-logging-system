@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
 from datetime import datetime
-from PIL import Image
 from typing import List, Tuple
 
 
